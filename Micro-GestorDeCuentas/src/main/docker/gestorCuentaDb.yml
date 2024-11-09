@@ -1,0 +1,12 @@
+
+services:
+  mysql:
+    container_name: ContenedorGestorCuenta
+    image: mysql:8.3.0
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=MicroGestorCuentaDB
+      - MYSQL_USERNAME=root
+    ports:
+      - "127.0.0.1:3307:3306"
+

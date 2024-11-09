@@ -2,6 +2,7 @@ package org.example.microgestorparadas.Controller;
 
 import org.example.microgestorparadas.Entity.Parada;
 import org.example.microgestorparadas.Service.ParadaService;
+import org.example.microgestorparadas.Service.ParadasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

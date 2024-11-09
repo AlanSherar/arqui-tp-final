@@ -22,25 +22,45 @@ public class MonopatinService {
     private MonopatinRepository MonopatinRepository;
 
     public List<MonopatinDto> findAll() {
-        return MonopatinRepository.findAll().stream().map(MonopatinDto::new).collect(Collectors.toList());
+        List<Monopatin> monopatines = MonopatinRepository.findAll();
+        if (monopatines.isEmpty()) {
+            throw new IllegalStateException("No hay monopatines disponibles.");
+        }
+        return monopatines.stream()
+                .map(MonopatinDto::new)
+                .collect(Collectors.toList());
     }
     @Transactional
     public MonopatinDto findById(Long id) throws Exception {
-        return MonopatinRepository.findById(id).map(MonopatinDto::new).orElse(null);
+        if (id == null) {
+            throw new IllegalArgumentException("ID proporcionado no es válido.");
+        }
+        return MonopatinRepository.findById(id)
+                .map(MonopatinDto::new)
+                .orElseThrow(() -> new Exception("El monopatín con ID " + id + " no fue encontrado."));
     }
     @Transactional
     public MonopatinDto save(Monopatin monopatin) throws Exception {
-        MonopatinRepository.save(monopatin);
-        return this.findById(monopatin.getId());
+        if (monopatin == null) {
+            throw new IllegalArgumentException("El monopatín proporcionado no puede ser nulo.");
+        }
+        if (monopatin.getId() != null && MonopatinRepository.existsById(monopatin.getId())) {
+            throw new IllegalStateException("El monopatín con ID " + monopatin.getId() + " ya existe.");
+        }
+        Monopatin savedMonopatin = MonopatinRepository.save(monopatin);
+        return new MonopatinDto(savedMonopatin);
     }
 
     @Transactional
     public ResponseEntity<?> delete(Long id) throws Exception {
+        if (id == null || id <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ID proporcionado no es válido.");
+        }
         if (MonopatinRepository.existsById(id)) {
             MonopatinRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).body("Eliminación exitosa");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La entidad con ID " + id + " no existe");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatín con ID " + id + " no existe");
         }
     }
 }

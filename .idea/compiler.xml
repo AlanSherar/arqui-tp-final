@@ -2,12 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
-        <module name="micro-GestorCuentas" />
+        <module name="Micro-GestorDeCuentas" />
         <module name="micro-GestorMonopatin" />
         <module name="micro-AdminCuentas" />
         <module name="micro-GestorViajes" />
@@ -15,10 +16,14 @@
         <module name="micro-Mantenimiento" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="micro-GestorCuentas" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="EurekaServer" options="-parameters" />
+      <module name="Micro-GestorDeCuentas" options="-parameters" />
       <module name="micro-AdminCuentas" options="-parameters" />
       <module name="micro-GestorCuentas" options="-parameters" />
       <module name="micro-GestorMonopatin" options="-parameters" />
