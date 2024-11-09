@@ -29,9 +29,9 @@ public class MonopatinService {
         return MonopatinRepository.findById(id).map(MonopatinDto::new).orElse(null);
     }
     @Transactional
-    public MonopatinDto save(Monopatin entity) throws Exception {
-        MonopatinRepository.save(entity);
-        return this.findById(entity.getId());
+    public MonopatinDto save(Monopatin monopatin) throws Exception {
+        MonopatinRepository.save(monopatin);
+        return this.findById(monopatin.getId());
     }
 
     @Transactional

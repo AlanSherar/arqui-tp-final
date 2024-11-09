@@ -33,9 +33,9 @@ public class MonopatinController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody Monopatin entity){
+    public ResponseEntity<?> save(@RequestBody Monopatin monopatin){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.save(entity));
+            return ResponseEntity.status(HttpStatus.OK).body(service.save(monopatin));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
