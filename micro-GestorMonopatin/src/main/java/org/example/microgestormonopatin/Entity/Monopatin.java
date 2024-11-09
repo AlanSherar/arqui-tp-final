@@ -12,7 +12,7 @@ public class Monopatin {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     private double kms;
     private boolean disponible;
     private LocalTime tiempoDeUso; // a chequear
@@ -23,4 +23,7 @@ public class Monopatin {
     private double mantenimientoKms;
     private long id_parada;
 
+    public long getIdParada() {
+        return id_parada;
+    }
 }
