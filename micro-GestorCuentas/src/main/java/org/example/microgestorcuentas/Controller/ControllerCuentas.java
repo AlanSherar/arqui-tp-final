@@ -16,7 +16,8 @@ public class ControllerCuentas {
 
     @GetMapping("/{login}")
     public void getLogin(@PathVariable("login") String login){
-        proxy.get(login);
+
     }
 
 }
+

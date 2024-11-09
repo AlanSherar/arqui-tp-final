@@ -1,4 +1,4 @@
-package org.example.microgestorcuentas.Dao;
+package org.example.microgestorcuentas.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
