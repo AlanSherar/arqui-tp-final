@@ -1,6 +1,6 @@
 package org.example.microgestorparadas.Repository;
 
-import org.example.microgestorparadas.Entity.Monopatin;
+import org.example.microgestorparadas.feignClient.Monopatin;
 import org.example.microgestorparadas.Entity.Parada;
 import org.springframework.data.jpa.repository.JpaRepository;
 

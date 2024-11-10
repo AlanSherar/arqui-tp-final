@@ -16,6 +16,9 @@ public class Parada {
     @Id
     @GeneratedValue
     private Long id;
+
+    private String gps;
+
     @OneToMany
     private ArrayList<Monopatin> monopatines;
 

@@ -1,6 +1,5 @@
 package org.example.microgestorparadas.Service;
 
-
 import org.example.microgestorparadas.Entity.Parada;
 import org.example.microgestorparadas.Repository.ParadasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Mono;
-
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -22,7 +17,7 @@ public class ParadasService {
     private ParadasRepository paradasRepository;
 
     @Autowired
-    private MonopatinFeignClient monopatinFeignClient;
+    private MonopatinClient monopatinFeignClient;
 
 
     public List<Parada> findAll() {
@@ -31,7 +26,7 @@ public class ParadasService {
 
     @Transactional
     public ResponseEntity<?> addMonopatin(Long id , Monopatin monopatin) throws Exception {
-        if (monopatinFeignClient.existsById(monopatin.getId()) && this.existsById(id)) {
+        if (monopatinFeignClient.getMonopatinById()!=null && this.existsById(id)) {
             Parada parada = this.findById(id);
             paradasRepository.addMonopatin(parada,monopatin);
             return ResponseEntity.status(HttpStatus.OK).body("Monopatin añadido con exito");
@@ -44,9 +39,13 @@ public class ParadasService {
         return paradasRepository.findById(id);
     }
     @Transactional
-    public Parada save(Parada paradas) throws Exception {
-        paradasRepository.save(paradas);
-        return this.findById(paradas.getId());
+    public boolean existsById(int id){
+        if (this.findById() !=null) return true;
+    }
+    @Transactional
+    public Parada save(Parada parada) throws Exception {
+        paradasRepository.save(parada);
+        return this.findById(parada.getId());
     }
 
     @Transactional

@@ -14,4 +14,5 @@ public class ViajeDto {
     private double precio;
     private long paradaId;
     private int tiempoDePausa; // Tiempo en minutos
+
 }
