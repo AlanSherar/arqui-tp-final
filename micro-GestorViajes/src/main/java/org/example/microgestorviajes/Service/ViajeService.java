@@ -20,17 +20,10 @@ public class ViajeService {
     }
 
 
-    public Viaje crearViaje(Long monopatinId, Long usuarioId, Long paradaId) {
-        Monopatin monopatin = monopatinClient.getMonopatinById(monopatinId);
-        Usuario usuario = usuarioClient.getUsuarioById(usuarioId);
-        Parada parada = paradaClient.getParadaById(paradaId);
+    public Viaje crearViaje(Viaje v ) {
 
-        if (monopatin == null || usuario == null || parada == null) {
-            throw new RuntimeException("Error");
-        }
-        // IMPLEMENTAR
-        Viaje viaje = new Viaje();
-        return viajeRepository.save(viaje);
+
+        return viajeRepository.save(v);
     }
 
 }

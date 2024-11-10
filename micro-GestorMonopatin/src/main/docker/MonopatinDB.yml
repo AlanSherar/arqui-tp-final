@@ -1,6 +1,6 @@
 
 services:
-  mysql:
+  mysql_monopatin:
     container_name: ContenedorMonopatin
     image: mysql:8.3.0
     environment:
@@ -8,5 +8,5 @@ services:
       - MYSQL_DATABASE=MicroMonopatinDB
       - MYSQL_USERNAME=root
     ports:
-      - "127.0.0.1:3304:3305"
+      - "127.0.0.1:3304:3306"
 

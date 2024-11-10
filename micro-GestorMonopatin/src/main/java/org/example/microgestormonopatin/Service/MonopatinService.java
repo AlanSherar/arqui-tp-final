@@ -32,7 +32,7 @@ public class MonopatinService {
     }
     @Transactional
     public MonopatinDto findById(Long id) throws Exception {
-        if (id == null) {
+        if (id == null|| id <= 0) {
             throw new IllegalArgumentException("ID proporcionado no es válido.");
         }
         return MonopatinRepository.findById(id)

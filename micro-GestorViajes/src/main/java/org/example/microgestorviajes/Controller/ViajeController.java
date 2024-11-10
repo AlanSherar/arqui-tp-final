@@ -15,12 +15,9 @@ public class ViajeController {
     public  ViajeService viajeService;
 
     @PostMapping("/")
-    public ResponseEntity<?> crearViaje(
-            @RequestParam Long monopatinId,
-            @RequestParam Long usuarioId,
-            @RequestParam Long paradaId) {
+    public ResponseEntity<?> crearViaje(@RequestBody Viaje v ){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(viajeService.crearViaje(monopatinId, usuarioId, paradaId));
+            return ResponseEntity.status(HttpStatus.OK).body(viajeService.crearViaje(v));
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al crear un viaje");
         }

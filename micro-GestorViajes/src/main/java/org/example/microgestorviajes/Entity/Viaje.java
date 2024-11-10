@@ -13,7 +13,7 @@ public class Viaje {
     private Long monopatinId;
     private Long usuarioId;
     private Long paradaId;
-    private LocalDate fecha;
+    private String fecha;
     private int horaInicio;
     private double precio;
     private int tiempoDePausa;
@@ -76,11 +76,11 @@ public class Viaje {
         this.horaInicio = horaInicio;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 }
