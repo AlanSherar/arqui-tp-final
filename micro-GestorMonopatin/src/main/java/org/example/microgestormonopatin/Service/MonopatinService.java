@@ -32,7 +32,10 @@ public class MonopatinService {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("ID proporcionado no es válido.");
         }
-        return MonopatinRepository.findById(id).orElseThrow(() -> new Exception("Monopatin no encontrado."));
+        if (MonopatinRepository.findById(id).isPresent()) {
+            return MonopatinRepository.findById(id).get();
+        }
+        return null;
     }
 
     @Transactional
