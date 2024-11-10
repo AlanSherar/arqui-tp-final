@@ -19,10 +19,12 @@ public class GestorCuentasController {
     private GestorCuentasServices service;
 
     @GetMapping("/usuarios")
-    public List<Usuario> getAll() {
-
-        return service.getAll();
-
+    public ResponseEntity<?> getAll() {
+        try {
+            return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.getAll());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e);
+        }
 
     }
 
@@ -58,23 +60,18 @@ public class GestorCuentasController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor.");
         }
-
-
     }
 
     @DeleteMapping("usuarios/{id}")
     public ResponseEntity<?> deleteUsuario(@PathVariable long id) {
-
-
             try{
                 service.deleteUsuarioByID(id);
                 return ResponseEntity.status(HttpStatus.OK).body("usuario eliminado");
             }catch (Exception e){
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al eliminar el usuario");
             }
-
-
     }
+
     @GetMapping("/CuentasAsociadas")
     public ResponseEntity<?> getAllCuentasAsociadas(){
         try{
@@ -114,17 +111,15 @@ public class GestorCuentasController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor.");
         }
     }
+
     @DeleteMapping("/CuentasAsociadas/{id}")
     public ResponseEntity<?> deleteCuenta(@PathVariable long id) {
-
-
         try{
             service.deleteCuentaById(id);
             return ResponseEntity.status(HttpStatus.OK).body("cuenta eliminado");
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al eliminar el usuario");
         }
-
-
     }
+
 }

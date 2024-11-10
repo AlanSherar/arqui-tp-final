@@ -8,12 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.example.microgestormonopatin.Dto.MonopatinDto;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Mono;
 
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Service
 public class MonopatinService {
@@ -21,26 +19,24 @@ public class MonopatinService {
     @Autowired
     private MonopatinRepository MonopatinRepository;
 
-    public List<MonopatinDto> findAll() {
+    public List<Monopatin> getAll() {
         List<Monopatin> monopatines = MonopatinRepository.findAll();
         if (monopatines.isEmpty()) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         }
-        return monopatines.stream()
-                .map(MonopatinDto::new)
-                .collect(Collectors.toList());
+        return monopatines;
     }
+
     @Transactional
-    public MonopatinDto findById(Long id) throws Exception {
-        if (id == null|| id <= 0) {
+    public Monopatin findById(Long id) throws Exception {
+        if (id == null || id <= 0) {
             throw new IllegalArgumentException("ID proporcionado no es válido.");
         }
-        return MonopatinRepository.findById(id)
-                .map(MonopatinDto::new)
-                .orElseThrow(() -> new Exception("El monopatín con ID " + id + " no fue encontrado."));
+        return MonopatinRepository.findById(id).orElseThrow(() -> new Exception("Monopatin no encontrado."));
     }
+
     @Transactional
-    public MonopatinDto save(Monopatin monopatin) throws Exception {
+    public Monopatin save(Monopatin monopatin) throws Exception {
         if (monopatin == null) {
             throw new IllegalArgumentException("El monopatín proporcionado no puede ser nulo.");
         }
@@ -48,7 +44,9 @@ public class MonopatinService {
             throw new IllegalStateException("El monopatín con ID " + monopatin.getId() + " ya existe.");
         }
         Monopatin savedMonopatin = MonopatinRepository.save(monopatin);
-        return new MonopatinDto(savedMonopatin);
+        System.out.println("SERVICE MONOPATIN GUARDADO: ");
+        System.out.println(savedMonopatin);
+        return savedMonopatin;
     }
 
     @Transactional

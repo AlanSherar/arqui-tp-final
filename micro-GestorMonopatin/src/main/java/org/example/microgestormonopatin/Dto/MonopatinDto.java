@@ -1,16 +1,14 @@
 package org.example.microgestormonopatin.Dto;
 import org.example.microgestormonopatin.Entity.Monopatin;
 
-import java.time.LocalTime;
-
 public class MonopatinDto {
     private Long id;
     private double kms;
     private boolean disponible;
-    private LocalTime tiempoDeUso;              // a chequear
+    private String tiempoDeUso;              // a chequear
     private int cantViajes;
     private String gps;                         // a chequear
-    private LocalTime tiempoPausa;
+    private String tiempoPausa;
     private double mantenimientoTiempoUso;
     private double mantenimientoKms;
     private long id_parada;
@@ -26,6 +24,22 @@ public class MonopatinDto {
         this.mantenimientoKms = monopatin.getMantenimientoKms();
         this.mantenimientoTiempoUso = monopatin.getMantenimientoTiempoUso();
         this.id_parada = monopatin.getIdParada();
+    }
+
+    @Override
+    public String toString() {
+        return "MonopatinDto{" +
+                "id=" + id +
+                ", kms=" + kms +
+                ", disponible=" + disponible +
+                ", tiempoDeUso='" + tiempoDeUso + '\'' +
+                ", cantViajes=" + cantViajes +
+                ", gps='" + gps + '\'' +
+                ", tiempoPausa='" + tiempoPausa + '\'' +
+                ", mantenimientoTiempoUso=" + mantenimientoTiempoUso +
+                ", mantenimientoKms=" + mantenimientoKms +
+                ", id_parada=" + id_parada +
+                '}';
     }
 }
 

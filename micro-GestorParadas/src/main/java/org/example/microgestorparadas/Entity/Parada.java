@@ -16,6 +16,7 @@ public class Parada {
     @Id
     @GeneratedValue
     private Long id;
+
     @OneToMany
     private ArrayList<Monopatin> monopatines;
 

@@ -36,7 +36,6 @@ public class GestorCuentasServices {
     }
 
     public Usuario updateUsuario(long id, Usuario u) {
-
      Usuario usuarioBd = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con ID: " + id));
       usuarioBd.setUsername(u.getUsername());
       usuarioBd.setNumero_celular(u.getNumero_celular());
@@ -45,8 +44,6 @@ public class GestorCuentasServices {
       usuarioBd.setApellido(u.getApellido());
       usuarioBd.setRol(u.getRol());
       return  repository.save(usuarioBd);
-
-
     }
 
     public void deleteUsuarioByID(long id) {
