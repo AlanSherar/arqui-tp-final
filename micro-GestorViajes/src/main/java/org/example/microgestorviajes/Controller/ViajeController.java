@@ -23,5 +23,6 @@ public class ViajeController {
             @RequestParam Long paradaId) {
         return viajeService.crearViaje(monopatinId, usuarioId, paradaId);
     }
+
 }
 

@@ -19,16 +19,17 @@ public class ViajeService {
         this.viajeRepository = viajeRepository;
     }
 
+
     public Viaje crearViaje(Long monopatinId, Long usuarioId, Long paradaId) {
         Monopatin monopatin = monopatinClient.getMonopatinById(monopatinId);
         Usuario usuario = usuarioClient.getUsuarioById(usuarioId);
         Parada parada = paradaClient.getParadaById(paradaId);
 
+        if (monopatin == null || usuario == null || parada == null) {
+            throw new RuntimeException("Error");
+        }
+        // IMPLEMENTAR
         Viaje viaje = new Viaje();
-        viaje.setMonopatin(monopatin);
-        viaje.setUsuario(usuario);
-        viaje.setParada(parada);
-
         return viajeRepository.save(viaje);
     }
 

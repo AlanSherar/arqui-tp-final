@@ -1,15 +1,17 @@
 package org.example.microgestorviajes.Dto;
-import jakarta.persistence.Id;
-import java.time.LocalDate;
 
+import lombok.Data;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+@Data
 public class ViajeDto {
 
-    private Monopatin monopatin;
-    private Usuario usuario;
+    private long monopatinId;
+    private long usuarioId;
     private LocalDate fecha;
-    private int horaInicio; // nose si es int
+    private LocalTime horaInicio; // Mejor como LocalTime para representar la hora
     private double precio;
-    private Parada parada;
-    private int tiempoDePausa; // nose si es int
-
+    private long paradaId;
+    private int tiempoDePausa; // Tiempo en minutos
 }
