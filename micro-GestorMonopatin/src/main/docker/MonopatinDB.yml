@@ -8,5 +8,5 @@ services:
       - MYSQL_DATABASE=MicroMonopatinDB
       - MYSQL_USERNAME=root
     ports:
-      - "127.0.0.1:3305:3306"
+      - "127.0.0.1:3304:3305"
 
