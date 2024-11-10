@@ -1,4 +1,4 @@
-package org.example.microgestorviajes.clienteFeign;
+package org.example.microgestorparadas.feignClients;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
