@@ -17,13 +17,12 @@ public class MonopatinDto {
         this.id = monopatin.getId();
         this.kms = monopatin.getKms();
         this.disponible = monopatin.isDisponible();
-        this.tiempoDeUso = monopatin.getTiempoDeUso();
-        this.cantViajes = monopatin.getCantViajes();
-        this.gps = monopatin.getGps();
-        this.tiempoPausa = monopatin.getTiempoPausa();
-        this.mantenimientoKms = monopatin.getMantenimientoKms();
-        this.mantenimientoTiempoUso = monopatin.getMantenimientoTiempoUso();
-        this.id_parada = monopatin.getIdParada();
+        this.tiempoDeUso = monopatin.getTiempo_de_uso();
+        this.cantViajes = monopatin.getCant_viajes();
+        this.tiempoPausa = monopatin.getTiempo_pausa();
+        this.mantenimientoKms = monopatin.getMantenimiento_kms();
+        this.mantenimientoTiempoUso = monopatin.getMantenimiento_tiempo_uso();
+        this.id_parada = monopatin.getId_parada();
     }
 
     @Override

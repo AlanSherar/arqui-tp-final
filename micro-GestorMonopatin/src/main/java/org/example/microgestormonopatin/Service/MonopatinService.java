@@ -1,5 +1,6 @@
 package org.example.microgestormonopatin.Service;
 
+import org.example.microgestormonopatin.Clients.ParadaClient;
 import org.example.microgestormonopatin.Entity.Monopatin;
 import org.example.microgestormonopatin.Repository.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class MonopatinService {
+
+    @Autowired
+    private ParadaClient paradaClient;
 
     @Autowired
     private MonopatinRepository MonopatinRepository;
@@ -40,15 +44,22 @@ public class MonopatinService {
 
     @Transactional
     public Monopatin save(Monopatin monopatin) throws Exception {
+
         if (monopatin == null) {
+            System.out.println("EXCEPTION 1");
             throw new IllegalArgumentException("El monopatín proporcionado no puede ser nulo.");
         }
         if (monopatin.getId() != null && MonopatinRepository.existsById(monopatin.getId())) {
+            System.out.println("EXCEPTION 2");
             throw new IllegalStateException("El monopatín con ID " + monopatin.getId() + " ya existe.");
         }
+
+        //System.out.println(paradaClient.getById(monopatin.getId_parada()));
+
         Monopatin savedMonopatin = MonopatinRepository.save(monopatin);
-        System.out.println("SERVICE MONOPATIN GUARDADO: ");
+
         System.out.println(savedMonopatin);
+
         return savedMonopatin;
     }
 

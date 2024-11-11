@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 public class Usuario {
+
     @Id
     private Long id_usuario;
     private String username;
