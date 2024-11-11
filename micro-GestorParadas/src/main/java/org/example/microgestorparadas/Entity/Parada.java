@@ -19,17 +19,21 @@ public class Parada {
 
     private String gps;
 
-    @OneToMany
-    private ArrayList<Monopatin> monopatines;
+
 
     public long getId() {
         return id;
     }
 
-    public void addMonopatin(Monopatin monopatin){
-        this.monopatines.add(monopatin);
+    public void setId(Long id) {
+        this.id = id;
     }
-    public void deleteMonopatin(Monopatin monopatin){
-        this.monopatines.remove(monopatin);
+
+    public String getGps() {
+        return gps;
+    }
+
+    public void setGps(String gps) {
+        this.gps = gps;
     }
 }

@@ -1,4 +1,5 @@
 package org.example.microgestorviajes.clienteFeign;
+import org.example.microgestorparadas.feignClients.Monopatin;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.cloud.openfeign.FeignClient;

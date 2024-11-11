@@ -7,12 +7,10 @@ import lombok.Data;
 
 import java.time.LocalTime;
 
-@Entity
-@Data
+
 public class Monopatin {
 
-    @Id
-    @GeneratedValue
+
     private Long id;
     private double kms;
     private boolean disponible;

@@ -1,5 +1,5 @@
 services:
-  viaje_mysql:
+  parada_mysql:
     container_name: ContenedorGestorParada
     image: mysql:8.3.0
     environment:
