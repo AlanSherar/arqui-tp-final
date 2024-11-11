@@ -24,9 +24,7 @@ public class Monopatin {
     private long id_parada;
 
 
-    public long getIdParada() {
-        return id_parada;
-    }
+
 
     @Override
     public String toString() {

@@ -23,7 +23,7 @@ public class MonopatinDto {
         this.tiempoPausa = monopatin.getTiempoPausa();
         this.mantenimientoKms = monopatin.getMantenimientoKms();
         this.mantenimientoTiempoUso = monopatin.getMantenimientoTiempoUso();
-        this.id_parada = monopatin.getIdParada();
+        this.id_parada = monopatin.getId_parada();
     }
 
     @Override
