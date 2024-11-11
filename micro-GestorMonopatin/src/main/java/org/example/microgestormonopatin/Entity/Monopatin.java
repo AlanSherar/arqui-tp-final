@@ -18,7 +18,7 @@ public class Monopatin {
     private String tiempoDeUso; // a chequear
     private int cantViajes;
     private String gps; // a chequear
-    private String tiempoPausa;
+    private int tiempoPausa;
     private double mantenimientoTiempoUso;
     private double mantenimientoKms;
     private long id_parada;
@@ -67,11 +67,11 @@ public class Monopatin {
         this.mantenimientoTiempoUso = mantenimientoTiempoUso;
     }
 
-    public String getTiempoPausa() {
+    public int getTiempoPausa() {
         return tiempoPausa;
     }
 
-    public void setTiempoPausa(String tiempoPausa) {
+    public void setTiempoPausa(int tiempoPausa) {
         this.tiempoPausa = tiempoPausa;
     }
 
