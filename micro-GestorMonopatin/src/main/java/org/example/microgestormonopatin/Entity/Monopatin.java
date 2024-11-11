@@ -23,6 +23,7 @@ public class Monopatin {
     private double mantenimientoKms;
     private long id_parada;
 
+
     public long getIdParada() {
         return id_parada;
     }
