@@ -55,7 +55,6 @@ public class ParadasController {
     public ResponseEntity<?> actualizarParada (@PathVariable Long id, @RequestBody Parada p){
         try{
             try {
-
                 Parada parada = service.updateParada(id, p);
                 return ResponseEntity.status(HttpStatus.OK).body(parada);
             } catch (EntityNotFoundException e) {
@@ -69,4 +68,15 @@ public class ParadasController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error no se pueden actualizar los datos");
         }
     }
+
+    @GetMapping("/ubicacionX/{x}/ubicacionY/{y}")
+    public ResponseEntity<?> getByUbicacion(@PathVariable int x, @PathVariable int y){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(service.findByUbicacion(x, y));
+        }catch (Exception e ){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra una parada en esta ubicacion" +
+                    ".\"}");
+        }
     }
+
+}

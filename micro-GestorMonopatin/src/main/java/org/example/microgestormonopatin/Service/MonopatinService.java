@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.example.microgestormonopatin.Dto.MonopatinDto;
+import org.example.microgestormonopatin.Dto.MonopatinKmsDTO;
+import org.example.microgestormonopatin.Dto.MonopatinTiempoDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class MonopatinService {
+
+    private final int MAX_kms = 100;
 
     @Autowired
     private ParadaClient paradaClient;
@@ -31,6 +34,44 @@ public class MonopatinService {
         return monopatines;
     }
 
+    public List<MonopatinKmsDTO> getMonopatinesByKms() {
+        List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByKms();
+        if (monopatines.isEmpty()) {
+            throw new IllegalStateException("No hay monopatines disponibles.");
+        }
+        return monopatines.stream().map(MonopatinKmsDTO::new).toList();
+    }
+    public List<MonopatinTiempoDTO> getMonopatinesByPausa() {
+        List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByPausa();
+        if (monopatines.isEmpty()) {
+            throw new IllegalStateException("No hay monopatines disponibles.");
+        }
+        return monopatines.stream().map(MonopatinTiempoDTO::new).toList();
+    }
+
+    public List<MonopatinTiempoDTO> getMonopatinesByNotPausa() {
+        List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByNotPausa();
+        if (monopatines.isEmpty()) {
+            throw new IllegalStateException("No hay monopatines disponibles.");
+        }
+        return monopatines.stream().map(MonopatinTiempoDTO::new).toList();
+    }
+
+    public long getMonopatinesEnOperacion() {
+       Long CantMonopatines = MonopatinRepository.getMonopatinesEnOperacion();
+        if (CantMonopatines==null) {
+            throw new IllegalStateException("No hay monopatines disponibles.");
+        }
+        else return CantMonopatines;
+    }
+
+    public long getMonopatinesEnMantenimiento() {
+        Long CantMonopatines = MonopatinRepository.getMonopatinesEnOperacion();
+        if (CantMonopatines==null) {
+            throw new IllegalStateException("No hay monopatines disponibles.");
+        }
+        else return CantMonopatines;
+    }
     @Transactional
     public Monopatin findById(Long id) throws Exception {
         if (id == null || id <= 0) {
@@ -41,7 +82,6 @@ public class MonopatinService {
         }
         return null;
     }
-
     @Transactional
     public Monopatin save(Monopatin monopatin) throws Exception {
 
@@ -75,6 +115,18 @@ public class MonopatinService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatín con ID " + id + " no existe");
         }
     }
+    @Transactional
+    public ResponseEntity<?> verificarEstadoMonopatin(Long id){
+        Monopatin monopatin = MonopatinRepository.getById(id);
+        double kilometros = monopatin.getKms();
+        if(kilometros==MAX_kms){
+
+        }
+
+    }
+
+
+
 }
 
 

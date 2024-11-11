@@ -24,11 +24,12 @@ public class MantenimientoController {
         return mantenimientoService.obtenerMonopatinPorId(id);
     }
     @PostMapping("/{idMonopatin}")
-    public ResponseEntity<?> RealizarMantenimiento (@PathVariable Long idMonopatin, @RequestBody MantenimientoMonopatin m){
+    public ResponseEntity<?> RealizarMantenimiento (@PathVariable Long idMonopatin){
         try{
-            ResponseEntity.status(HttpStatus.CREATED).body(mantenimientoService.NuevoMantenimiento(idMonopatin,m));
+            mantenimientoService.realizarMantenimiento(idMonopatin);
+           return  ResponseEntity.status(HttpStatus.OK).body(idMonopatin);
         }catch (Exception e){
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al crear un mantenimiento");
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al crear un mantenimiento");
         }
     }
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class Parada {
 
-
     private Long id;
     private ArrayList<Monopatin> monopatines;
 

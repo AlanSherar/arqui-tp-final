@@ -21,18 +21,16 @@ public class MantenimientoService {
     private  final int kmsMantenimiento = 50;
 
     public Monopatin obtenerMonopatinPorId(Long monopatinId) {
-        return monopatinFeignClient.getMonopatinById(monopatinId);
+        return monopatinFeignClient.getMonopatinById(monopatinId).getBody();
     }
 
-    public Object NuevoMantenimiento(Long idMonopatin, MantenimientoMonopatin m) {
-        ResponseEntity<Monopatin>  response= monopatinFeignClient.getMonopatinById(idMonopatin);
+    public void realizarMantenimiento(Long idMonopatin) {
+        ResponseEntity<Monopatin> response= monopatinFeignClient.getMonopatinById(idMonopatin);
         if(response.getStatusCode() == HttpStatus.OK){
-          Monopatin   MonopatinFeign =  response.getBody();
+            Monopatin MonopatinFeign = response.getBody();
             MonopatinFeign.setKilometros(MonopatinFeign.getKilometros()+kmsMantenimiento);
+            MonopatinFeign.setdisponible(true);
             monopatinFeignClient.ActualizarMonopatin(idMonopatin,MonopatinFeign);
-           return mantenimientoRepository.save(m);
-        }else{
-            return new EntityNotFoundException("el monopatin no existe");
         }
 
     }

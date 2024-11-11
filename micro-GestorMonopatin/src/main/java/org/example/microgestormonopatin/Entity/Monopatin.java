@@ -15,12 +15,13 @@ public class Monopatin {
     private Long id;
     private double kms;
     private boolean disponible;
-    private String tiempo_de_uso; // a chequear
+    private double tiempo_de_uso; // a chequear
     private int cant_viajes;
-    private String tiempo_pausa;
+    private double tiempo_pausa;
     private double mantenimiento_tiempo_uso;
     private double mantenimiento_kms;
-    private Long id_parada;
+    private int ubicacionX;
+    private int ubicacionY;
 
     @Override
     public String toString() {
@@ -33,7 +34,6 @@ public class Monopatin {
                 ", tiempo_pausa='" + tiempo_pausa + '\'' +
                 ", mantenimiento_tiempo_uso=" + mantenimiento_tiempo_uso +
                 ", mantenimiento_kms=" + mantenimiento_kms +
-                ", id_parada=" + id_parada +
                 '}';
     }
 

@@ -16,8 +16,8 @@ public class Parada {
     @Id
     @GeneratedValue
     private Long id;
-
-    private String gps;
+    private int  ubicacionX;
+    private int ubicacionY;
 
 
 
@@ -29,11 +29,4 @@ public class Parada {
         this.id = id;
     }
 
-    public String getGps() {
-        return gps;
-    }
-
-    public void setGps(String gps) {
-        this.gps = gps;
-    }
 }

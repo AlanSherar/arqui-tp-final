@@ -45,6 +45,7 @@ public class ViajeController {
         }
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateViaje(@PathVariable long id, @RequestBody Viaje v) {
         try {
@@ -57,6 +58,15 @@ public class ViajeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos de viaje no válidos.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor.");
+        }
+    }
+
+    @PutMapping("/{id}/ubicacionX/{x}/ubicacionY/{y}")
+    public ResponseEntity<?> finalizarViaje(@PathVariable long id, @PathVariable int ubicacionX, @PathVariable int ubicacionY){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(viajeService.finalizarViaje(id, ubicacionX, ubicacionY));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al finalizar un viaje");
         }
     }
 
