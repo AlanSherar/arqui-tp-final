@@ -16,20 +16,17 @@ public class Parada {
     @Id
     @GeneratedValue
     private Long id;
+    private int  ubicacionX;
+    private int ubicacionY;
 
-    private String gps;
 
-    @OneToMany
-    private ArrayList<Monopatin> monopatines;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void addMonopatin(Monopatin monopatin){
-        this.monopatines.add(monopatin);
+    public void setId(Long id) {
+        this.id = id;
     }
-    public void deleteMonopatin(Monopatin monopatin){
-        this.monopatines.remove(monopatin);
-    }
+
 }

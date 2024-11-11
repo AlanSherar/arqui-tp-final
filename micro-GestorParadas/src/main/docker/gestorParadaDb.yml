@@ -1,5 +1,5 @@
 services:
-  viaje_mysql:
+  parada_mysql:
     container_name: ContenedorGestorParada
     image: mysql:8.3.0
     environment:
@@ -8,4 +8,3 @@ services:
       - MYSQL_USERNAME=root
     ports:
       - "3309:3306"
-

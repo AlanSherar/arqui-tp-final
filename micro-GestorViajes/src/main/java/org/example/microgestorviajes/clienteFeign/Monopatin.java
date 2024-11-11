@@ -7,24 +7,19 @@ import lombok.Data;
 
 import java.time.LocalTime;
 
-@Entity
+
 @Data
 public class Monopatin {
-
-    @Id
-    @GeneratedValue
     private Long id;
     private double kms;
     private boolean disponible;
-    private LocalTime tiempoDeUso; // a chequear
-    private int cantViajes;
-    private String gps; // a chequear
-    private LocalTime tiempoPausa;
-    private double mantenimientoTiempoUso;
-    private double mantenimientoKms;
-    private long id_parada;
+    private double tiempo_de_uso;
+    private int cant_viajes;
+    private double tiempo_pausa;
+    private double mantenimiento_tiempo_uso;
+    private double mantenimiento_kms;
+    private int ubicacionX;
+    private int ubicacionY;
 
-    public long getIdParada() {
-        return id_parada;
-    }
+
 }

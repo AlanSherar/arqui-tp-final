@@ -1,0 +1,10 @@
+services:
+  mysql_mantenimiento:
+    container_name: ContenedorMantenimiento
+    image: mysql:8.3.0
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=MicroMantenimientoDB
+      - MYSQL_USERNAME=root
+    ports:
+      - "127.0.0.1:3302:3306"

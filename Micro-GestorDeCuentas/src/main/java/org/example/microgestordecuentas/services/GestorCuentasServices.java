@@ -1,14 +1,18 @@
 package org.example.microgestordecuentas.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.http.protocol.HTTP;
 import org.example.microgestordecuentas.Entity.CuentasAsociadas;
 import org.example.microgestordecuentas.Entity.Usuario;
 import org.example.microgestordecuentas.repository.CuentasAsociadasRepository;
 import org.example.microgestordecuentas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GestorCuentasServices {
@@ -81,4 +85,27 @@ public class GestorCuentasServices {
         cuentasRepository.deleteById(id);
 
     }
+
+    public ResponseEntity<?> asociar(Long idUsuario, Long idCuenta) {
+
+            if (repository.existsById(idUsuario) && cuentasRepository.existsById(idCuenta)) {
+
+                Usuario u = repository.findById(idUsuario).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+                CuentasAsociadas cuentaAsociada = cuentasRepository.findById(idCuenta).orElseThrow(() -> new EntityNotFoundException("cuenta No encontrada"));
+               if(!u.ContainsCuenta(cuentaAsociada) && !cuentaAsociada.ContainsUsuario(u)){
+                   u.addCuentaAsociada(cuentaAsociada);
+                   cuentaAsociada.addUsuario(u);
+                   repository.save(u);
+                   repository.flush();
+                   return  ResponseEntity.status(HttpStatus.OK).body("cuenta Asociada");
+               }
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("La cuenta ya esta asociada ");
+
+
+            }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error no se pudo asociar");
+    }
+
+
 }

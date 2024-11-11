@@ -4,7 +4,11 @@ import org.example.microgestorviajes.Entity.Viaje;
 import org.example.microgestorviajes.Repository.ViajeRepository;
 import org.example.microgestorviajes.clienteFeign.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.example.microgestorviajes.clienteFeign.ParadaClient;
+
 import java.util.List;
 
 @Service
@@ -24,7 +28,7 @@ public class ViajeService {
         return viajes;
     }
 
-    public Viaje crearViaje(Viaje v ) {
+    public Viaje crearViaje(Viaje v) {
         return viajeRepository.save(v);
     }
 
@@ -34,15 +38,34 @@ public class ViajeService {
     }
 
     public Viaje updateViaje(long id, Viaje v) {
-        Viaje viajeBd = viajeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Viaje no encontrado con ID: " + id));
+        Viaje viajeBd = viajeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Viaje no encontrado con ID: " + id));
         viajeBd.setFecha(v.getFecha());
         viajeBd.setHoraInicio(v.getHoraInicio());
         viajeBd.setPrecio(v.getPrecio());
         viajeBd.setTiempoDePausa(v.getTiempoDePausa());
-        return viajeRepository.save(viajeBd);
+        return  viajeRepository.save(viajeBd);
     }
 
+    public ResponseEntity<?> finalizarViaje(Long id, int ubicacionX, int ubicacionY){
+        Viaje viaje =viajeRepository.findById(id).orElseThrow( () ->  new EntityNotFoundException("Error no existe el viaje") );
+        ResponseEntity<Parada> responseParada = paradaClient.getByUbicacion(ubicacionX,ubicacionY);
+        // Esta en parada?
+        if( responseParada.getStatusCode()== HttpStatus.OK){
+            // finalizar viaje
+            viaje.setEnCurso(false);
+            Monopatin monopatin = monopatinClient.getMonopatinById(viaje.getMonopatinId()).getBody();
+            monopatin.setUbicacionX(ubicacionX);
+            monopatin.setUbicacionY(ubicacionY);
+
+
+            monopatinClient.updateById(monopatin.getId(), monopatin);
+
+            Parada parada = responseParada.getBody();
+            paradaClient.guardarMonopatin(monopatin.getId());
+
+            // calcular el costo total
+        }
+    }
 
     public void deleteViajeByID(long id) {
         if (!viajeRepository.existsById(id)) {

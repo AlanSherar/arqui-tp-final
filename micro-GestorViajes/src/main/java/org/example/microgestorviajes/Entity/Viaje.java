@@ -17,8 +17,17 @@ public class Viaje {
     private int horaInicio;
     private double precio;
     private int tiempoDePausa;
+    private boolean enCurso;
 
     public Viaje(){}
+
+    public boolean getEnCurso(){
+        return enCurso;
+    }
+
+    public void setEnCurso(boolean c){
+        enCurso = c;
+    }
 
     public Long getId() {
         return id;

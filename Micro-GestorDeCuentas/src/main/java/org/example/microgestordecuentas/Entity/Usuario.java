@@ -1,5 +1,6 @@
 package org.example.microgestordecuentas.Entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -16,9 +17,14 @@ public class Usuario {
     private  String nombre;
     private String apellido;
     private String rol;
-    @ManyToMany(mappedBy = "usuarioAsociado")
+    @ManyToMany(mappedBy = "usuarioAsociado", cascade = CascadeType.PERSIST)
     private List<CuentasAsociadas> cuentas;
-
+    public void addCuentaAsociada(CuentasAsociadas c){
+        this.cuentas.add(c);
+    }
+    public boolean ContainsCuenta(CuentasAsociadas c){
+        return this.cuentas.contains(c);
+    }
     public Long getId_usuario() {
         return id_usuario;
     }

@@ -27,7 +27,7 @@ public class ViajeController {
         }
     }
 
-    @GetMapping("id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(viajeService.getById(id));
@@ -45,7 +45,8 @@ public class ViajeController {
         }
     }
 
-    @PutMapping("id/{id}")
+
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateViaje(@PathVariable long id, @RequestBody Viaje v) {
         try {
             System.out.println("Datos recibidos para actualización: " + v);
@@ -60,7 +61,16 @@ public class ViajeController {
         }
     }
 
-    @DeleteMapping("id/{id}")
+    @PutMapping("/{id}/ubicacionX/{x}/ubicacionY/{y}")
+    public ResponseEntity<?> finalizarViaje(@PathVariable long id, @PathVariable int ubicacionX, @PathVariable int ubicacionY){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(viajeService.finalizarViaje(id, ubicacionX, ubicacionY));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al finalizar un viaje");
+        }
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteViaje(@PathVariable long id) {
         try{
             viajeService.deleteViajeByID(id);

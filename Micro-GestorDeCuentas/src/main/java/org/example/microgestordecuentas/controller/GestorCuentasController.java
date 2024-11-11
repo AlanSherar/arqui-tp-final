@@ -1,5 +1,6 @@
 package org.example.microgestordecuentas.controller;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.example.microgestordecuentas.Entity.CuentasAsociadas;
 import org.example.microgestordecuentas.Entity.Usuario;
 import org.example.microgestordecuentas.services.GestorCuentasServices;
@@ -64,22 +65,23 @@ public class GestorCuentasController {
 
     @DeleteMapping("usuarios/{id}")
     public ResponseEntity<?> deleteUsuario(@PathVariable long id) {
-            try{
-                service.deleteUsuarioByID(id);
-                return ResponseEntity.status(HttpStatus.OK).body("usuario eliminado");
-            }catch (Exception e){
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al eliminar el usuario");
-            }
+        try {
+            service.deleteUsuarioByID(id);
+            return ResponseEntity.status(HttpStatus.OK).body("usuario eliminado");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al eliminar el usuario");
+        }
     }
 
     @GetMapping("/CuentasAsociadas")
-    public ResponseEntity<?> getAllCuentasAsociadas(){
-        try{
+    public ResponseEntity<?> getAllCuentasAsociadas() {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(service.getAllCuentasAsociadas());
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("error");
         }
     }
+
     @PostMapping("/CuentasAsociadas")
     public ResponseEntity<?> addOneCuentas(@RequestBody CuentasAsociadas c) {
         try {
@@ -89,16 +91,18 @@ public class GestorCuentasController {
             return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(c);
         }
     }
+
     @GetMapping("/CuentasAsociadas/{id}")
-    public ResponseEntity<?> getCuentaById(@PathVariable long id){
+    public ResponseEntity<?> getCuentaById(@PathVariable long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.GetCuentaById(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("error");
         }
     }
+
     @PutMapping("/CuentasAsociadas/{id}")
-    public ResponseEntity<?> getCuentaById(@PathVariable long id,@RequestBody CuentasAsociadas c){
+    public ResponseEntity<?> getCuentaById(@PathVariable long id, @RequestBody CuentasAsociadas c) {
         try {
             System.out.println("Datos recibidos para actualización: " + c);
             CuentasAsociadas cuenta = service.updateCuenta(id, c);
@@ -114,12 +118,23 @@ public class GestorCuentasController {
 
     @DeleteMapping("/CuentasAsociadas/{id}")
     public ResponseEntity<?> deleteCuenta(@PathVariable long id) {
-        try{
+        try {
             service.deleteCuentaById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("cuenta eliminado");
-        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.OK).body("cuenta eliminada");
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al eliminar el usuario");
         }
+    }
+    @Transactional
+    @PutMapping("/CuentasAsociadas/Asociar/{idUsuario}/Cuenta/{idCuenta}")
+    public ResponseEntity<?> AsociarCuentaExistente(@PathVariable Long idUsuario, @PathVariable Long idCuenta) {
+        try {
+            return service.asociar(idUsuario, idCuenta);
+        } catch (Exception e) {
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ocurrio un error ");
+        }
+
+
     }
 
 }
