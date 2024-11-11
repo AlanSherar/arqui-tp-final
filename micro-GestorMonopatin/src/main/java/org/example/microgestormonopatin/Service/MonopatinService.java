@@ -1,5 +1,6 @@
 package org.example.microgestormonopatin.Service;
 
+import org.example.microgestormonopatin.Clients.MantenimientoClient;
 import org.example.microgestormonopatin.Clients.ParadaClient;
 import org.example.microgestormonopatin.Entity.Monopatin;
 import org.example.microgestormonopatin.Repository.MonopatinRepository;
@@ -22,6 +23,8 @@ public class MonopatinService {
 
     @Autowired
     private ParadaClient paradaClient;
+    @Autowired
+    private MantenimientoClient man
 
     @Autowired
     private MonopatinRepository MonopatinRepository;
@@ -116,17 +119,13 @@ public class MonopatinService {
         }
     }
     @Transactional
-    public ResponseEntity<?> verificarEstadoMonopatin(Long id){
+    public ResponseEntity<?> verificarEstadoMonopatin(Long id) {
         Monopatin monopatin = MonopatinRepository.getById(id);
         double kilometros = monopatin.getKms();
-        if(kilometros==MAX_kms){
+        if (kilometros == MAX_kms) {
 
         }
-
     }
-
-
-
 }
 
 

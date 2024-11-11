@@ -25,9 +25,9 @@ public class MonopatinController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?>verificarEstadoMonopatin(){
+    public ResponseEntity<?>verificarEstadoMonopatin(@PathVariable Long id){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.verificarEstadoMonopatin());
+            return ResponseEntity.status(HttpStatus.OK).body(service.verificarEstadoMonopatin(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
