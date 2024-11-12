@@ -61,8 +61,6 @@ public class ViajeService {
             if(res.getStatusCode() != HttpStatus.OK){
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error : Ocurrio un error inesperado. No se pudo actualizar el monopatin "+ monopatin.getId());
             }
-
-
             // calcular el costo total
         }
     }
@@ -74,5 +72,18 @@ public class ViajeService {
         viajeRepository.deleteById(id);
     }
 
+    public ResponseEntity<?> getViajesByYear(Long idMonopatin, int anio){
+        ResponseEntity<Monopatin> monopatin = monopatinClient.getMonopatinById(idMonopatin);
+        if(monopatin.getStatusCode() != HttpStatus.OK){
+            throw new EntityNotFoundException("Error: no existe el monopatín con ID " + idMonopatin);
+        }
+        int cantidadViajes = viajeRepository.findViajesByYear(idMonopatin, anio);
+        if(cantidadViajes <= 0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron viajes en ese año");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(cantidadViajes);
+    }
+
 }
+
 
