@@ -10,4 +10,6 @@ public interface MonopatinClient {
     @GetMapping("/monopatines/{id}")
     ResponseEntity<Monopatin> getMonopatinById(@PathVariable("id") Long id);
 
+    @PutMapping("/{id}")
+    ResponseEntity<Monopatin> updateById(@PathVariable("id") Long id, @RequestBody Monopatin monopatin);
 }
