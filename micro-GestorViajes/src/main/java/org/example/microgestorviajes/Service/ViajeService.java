@@ -22,6 +22,8 @@ public class ViajeService {
     private ParadaClient paradaClient;
     @Autowired
     private ViajeRepository viajeRepository;
+//    @Autowired
+//    private AdminCuentaClient adminClient;
 
     public List<Viaje> getAll(){
         List<Viaje> viajes = viajeRepository.findAll();
@@ -64,6 +66,7 @@ public class ViajeService {
 
 
             // calcular el costo total
+
         }
     }
 

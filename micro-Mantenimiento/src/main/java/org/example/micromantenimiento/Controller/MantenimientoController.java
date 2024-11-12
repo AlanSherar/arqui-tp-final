@@ -26,8 +26,9 @@ public class MantenimientoController {
     @PutMapping("/realizar/{idMonopatin}")
     public ResponseEntity<?> RealizarMantenimiento (@PathVariable Long idMonopatin){
         try{
+            System.out.println("manteniendo....");
             mantenimientoService.realizarMantenimiento(idMonopatin);
-           return  ResponseEntity.status(HttpStatus.OK).body(idMonopatin);
+           return  ResponseEntity.status(HttpStatus.OK).body("Realizado el mantenimiento ");
         }catch (Exception e){
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al crear un mantenimiento");
         }
