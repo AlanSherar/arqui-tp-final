@@ -25,13 +25,14 @@ public class MantenimientoService {
     }
 
     public void realizarMantenimiento(Long idMonopatin) {
-        ResponseEntity<Monopatin> response= monopatinFeignClient.getMonopatinById(idMonopatin);
-        if(response.getStatusCode() == HttpStatus.OK){
-            Monopatin MonopatinFeign = response.getBody();
-            MonopatinFeign.setKilometros(MonopatinFeign.getKilometros()+kmsMantenimiento);
-            MonopatinFeign.setdisponible(true);
-            monopatinFeignClient.ActualizarMonopatin(idMonopatin,MonopatinFeign);
+        ResponseEntity<Monopatin> response = monopatinFeignClient.getMonopatinById(idMonopatin);
+        if (response.getStatusCode() == HttpStatus.OK) {
+            Monopatin monopatinFeign = response.getBody();
+            if (monopatinFeign != null) {
+                monopatinFeign.setKilometros(monopatinFeign.getKilometros() + kmsMantenimiento);
+                monopatinFeign.setdisponible(true);
+                monopatinFeignClient.ActualizarMonopatin(idMonopatin, monopatinFeign);
+            }
         }
-
     }
 }

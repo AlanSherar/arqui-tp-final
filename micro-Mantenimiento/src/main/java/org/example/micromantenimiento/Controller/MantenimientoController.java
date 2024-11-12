@@ -23,7 +23,7 @@ public class MantenimientoController {
     public Monopatin obtenerMonopatinPorId(@PathVariable Long id) {
         return mantenimientoService.obtenerMonopatinPorId(id);
     }
-    @PostMapping("/{idMonopatin}")
+    @PutMapping("/realizar/{idMonopatin}")
     public ResponseEntity<?> RealizarMantenimiento (@PathVariable Long idMonopatin){
         try{
             mantenimientoService.realizarMantenimiento(idMonopatin);
