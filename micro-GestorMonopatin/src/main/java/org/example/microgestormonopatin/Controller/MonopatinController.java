@@ -32,6 +32,7 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
     @GetMapping( "/kms")
     public ResponseEntity<?> getMonopatinesByKms() {
         try {

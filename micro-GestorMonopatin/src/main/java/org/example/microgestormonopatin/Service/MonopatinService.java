@@ -1,5 +1,6 @@
 package org.example.microgestormonopatin.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.example.microgestormonopatin.Clients.MantenimientoClient;
 import org.example.microgestormonopatin.Clients.ParadaClient;
 import org.example.microgestormonopatin.Entity.Monopatin;
@@ -19,12 +20,12 @@ import java.util.stream.Collectors;
 @Service
 public class MonopatinService {
 
-    private final int MAX_kms = 100;
+    private final int MAX_KMS = 100;
 
     @Autowired
     private ParadaClient paradaClient;
     @Autowired
-    private MantenimientoClient man
+    private MantenimientoClient mantenimientoClient;
 
     @Autowired
     private MonopatinRepository MonopatinRepository;
@@ -119,13 +120,23 @@ public class MonopatinService {
         }
     }
     @Transactional
-    public ResponseEntity<?> verificarEstadoMonopatin(Long id) {
-        Monopatin monopatin = MonopatinRepository.getById(id);
+    public ResponseEntity<String> verificarEstadoMonopatin(Long id) {
+        Monopatin monopatin = MonopatinRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Monopatín no encontrado"));
         double kilometros = monopatin.getKms();
-        if (kilometros == MAX_kms) {
-
+        if (kilometros >= MAX_KMS) {
+            monopatin.setDisponible(false);
+            ResponseEntity<String> response = mantenimientoClient.realizarMantenimiento(id);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return ResponseEntity.ok("Monopatín ha sido enviado a mantenimiento.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Error al realizar mantenimiento.");
+            }
         }
+        return ResponseEntity.ok("Monopatín está disponible.");
     }
+
 }
 
 
