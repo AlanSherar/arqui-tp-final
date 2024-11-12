@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -16,7 +18,7 @@ public class MonopatinController {
     @Autowired
     private MonopatinService service;
 
-    @GetMapping( "/")
+    @GetMapping("/")
     public ResponseEntity<?> getAll() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
@@ -24,14 +26,20 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<?>verificarEstadoMonopatin(@PathVariable Long id){
+    public ResponseEntity<?> verificarEstadoMonopatin(@PathVariable Long id) {
         try {
             System.out.println("request desde mantenimiento");
             return ResponseEntity.status(HttpStatus.OK).body(service.verificarEstadoMonopatin(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
+    }
+
+    @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
+    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable LocalDate fecha){
+        return service.getMonopatinesByCantidadViajes(viajes, fecha);
     }
 
     @GetMapping( "/kms")
@@ -51,6 +59,7 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
     @GetMapping( "/tiemponotpausa")
     public ResponseEntity<?> getMonopatinesByNotPausa() {
         try {
@@ -59,6 +68,7 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id) {
         try {
@@ -77,7 +87,6 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
-    @GetMapping()
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
@@ -87,6 +96,7 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
+
     @GetMapping("/estadisticas")
     public ResponseEntity<?> obtenerDisponiblesYEnMantenimiento() {
         try {

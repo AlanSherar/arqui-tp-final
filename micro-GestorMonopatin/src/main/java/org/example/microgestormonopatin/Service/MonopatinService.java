@@ -3,6 +3,7 @@ package org.example.microgestormonopatin.Service;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.microgestormonopatin.Clients.MantenimientoClient;
 import org.example.microgestormonopatin.Clients.ParadaClient;
+import org.example.microgestormonopatin.Clients.ViajeClient;
 import org.example.microgestormonopatin.Entity.Monopatin;
 import org.example.microgestormonopatin.Repository.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import org.example.microgestormonopatin.Dto.MonopatinTiempoDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MonopatinService {
@@ -26,7 +28,8 @@ public class MonopatinService {
     private ParadaClient paradaClient;
     @Autowired
     private MantenimientoClient mantenimientoClient;
-
+    @Autowired
+    private ViajeClient viajeClient;
     @Autowired
     private MonopatinRepository MonopatinRepository;
 
@@ -45,6 +48,7 @@ public class MonopatinService {
         }
         return monopatines.stream().map(MonopatinKmsDTO::new).toList();
     }
+
     public List<MonopatinTiempoDTO> getMonopatinesByPausa() {
         List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByPausa();
         if (monopatines.isEmpty()) {
@@ -76,6 +80,7 @@ public class MonopatinService {
         }
         else return CantMonopatines;
     }
+
     @Transactional
     public Monopatin findById(Long id) throws Exception {
         if (id == null || id <= 0) {
@@ -86,6 +91,7 @@ public class MonopatinService {
         }
         return null;
     }
+
     @Transactional
     public Monopatin save(Monopatin monopatin) throws Exception {
 
@@ -119,6 +125,7 @@ public class MonopatinService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatín con ID " + id + " no existe");
         }
     }
+
     @Transactional
     public ResponseEntity<String> verificarEstadoMonopatin(Long id) {
         Monopatin monopatin = MonopatinRepository.findById(id)
@@ -137,6 +144,20 @@ public class MonopatinService {
         return ResponseEntity.ok("Monopatín está disponible.");
     }
 
+    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, LocalDate fecha){
+        List<Monopatin> monopatines;
+        List<Monopatin> monopatinesViaje = new ArrayList<>();
+        monopatines = MonopatinRepository.findAll();
+        for(Monopatin monopatin : monopatines){
+            int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha.getYear());
+            if(cantViajes > nroViajes){
+                monopatinesViaje.add(monopatin);
+            }
+        }
+        return monopatinesViaje;
+    }
+
 }
+
 
 
