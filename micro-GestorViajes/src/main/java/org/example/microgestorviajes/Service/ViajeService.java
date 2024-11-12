@@ -57,11 +57,11 @@ public class ViajeService {
             monopatin.setUbicacionX(ubicacionX);
             monopatin.setUbicacionY(ubicacionY);
 
+            ResponseEntity<Monopatin> res = monopatinClient.updateById(monopatin.getId(), monopatin);
+            if(res.getStatusCode() != HttpStatus.OK){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error : Ocurrio un error inesperado. No se pudo actualizar el monopatin "+ monopatin.getId());
+            }
 
-            monopatinClient.updateById(monopatin.getId(), monopatin);
-
-            Parada parada = responseParada.getBody();
-            paradaClient.guardarMonopatin(monopatin.getId());
 
             // calcular el costo total
         }

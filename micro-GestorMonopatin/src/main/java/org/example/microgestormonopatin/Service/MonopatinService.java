@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.example.microgestormonopatin.Dto.MonopatinKmsDTO;
 import org.example.microgestormonopatin.Dto.MonopatinTiempoDTO;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
@@ -24,8 +26,7 @@ public class MonopatinService {
     @Autowired
     private ParadaClient paradaClient;
     @Autowired
-    private MantenimientoClient man
-
+    private MantenimientoClient mantenimientoClient;
     @Autowired
     private MonopatinRepository MonopatinRepository;
 
@@ -123,9 +124,18 @@ public class MonopatinService {
         Monopatin monopatin = MonopatinRepository.getById(id);
         double kilometros = monopatin.getKms();
         if (kilometros == MAX_kms) {
-
+            // terminar
         }
     }
+
+    public ResponseEntity<?>updateById(Long id, Monopatin monopatin){
+        if(MonopatinRepository.findById(id).isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(MonopatinRepository.save(monopatin));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatín con ID " + id + " no existe");
+        }
+    }
+
 }
 
 

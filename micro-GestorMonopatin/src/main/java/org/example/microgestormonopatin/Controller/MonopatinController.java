@@ -24,6 +24,7 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<?>verificarEstadoMonopatin(@PathVariable Long id){
         try {
@@ -32,6 +33,16 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?>updateById(@PathVariable Long id, @RequestBody Monopatin monopatin){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.updateById(id, monopatin));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
+        }
+    }
+
     @GetMapping( "/kms")
     public ResponseEntity<?> getMonopatinesByKms() {
         try {
