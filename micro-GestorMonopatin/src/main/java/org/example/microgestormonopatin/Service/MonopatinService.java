@@ -1,5 +1,6 @@
 package org.example.microgestormonopatin.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.example.microgestormonopatin.Clients.MantenimientoClient;
 import org.example.microgestormonopatin.Clients.ParadaClient;
 import org.example.microgestormonopatin.Entity.Monopatin;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.example.microgestormonopatin.Dto.MonopatinKmsDTO;
 import org.example.microgestormonopatin.Dto.MonopatinTiempoDTO;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
@@ -21,12 +20,13 @@ import java.util.stream.Collectors;
 @Service
 public class MonopatinService {
 
-    private final int MAX_kms = 100;
+    private final int MAX_KMS = 100;
 
     @Autowired
     private ParadaClient paradaClient;
     @Autowired
     private MantenimientoClient mantenimientoClient;
+
     @Autowired
     private MonopatinRepository MonopatinRepository;
 
@@ -120,20 +120,21 @@ public class MonopatinService {
         }
     }
     @Transactional
-    public ResponseEntity<?> verificarEstadoMonopatin(Long id) {
-        Monopatin monopatin = MonopatinRepository.getById(id);
+    public ResponseEntity<String> verificarEstadoMonopatin(Long id) {
+        Monopatin monopatin = MonopatinRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Monopatín no encontrado"));
         double kilometros = monopatin.getKms();
-        if (kilometros == MAX_kms) {
-            // terminar
+        if (kilometros >= MAX_KMS) {
+            monopatin.setDisponible(false);
+            ResponseEntity<String> response = mantenimientoClient.realizarMantenimiento(id);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return ResponseEntity.ok("Monopatín ha sido enviado a mantenimiento.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Error al realizar mantenimiento.");
+            }
         }
-    }
-
-    public ResponseEntity<?>updateById(Long id, Monopatin monopatin){
-        if(MonopatinRepository.findById(id).isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(MonopatinRepository.save(monopatin));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatín con ID " + id + " no existe");
-        }
+        return ResponseEntity.ok("Monopatín está disponible.");
     }
 
 }
