@@ -40,6 +40,7 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
     @GetMapping( "/tiempopausa")
     public ResponseEntity<?> getMonopatinesByPausa() {
         try {
