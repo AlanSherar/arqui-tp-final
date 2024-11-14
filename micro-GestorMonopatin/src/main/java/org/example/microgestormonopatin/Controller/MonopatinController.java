@@ -44,10 +44,10 @@ public class MonopatinController {
         }
     }
 
-//    @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
-//    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable LocalDate fecha){
-//        return service.getMonopatinesByCantidadViajes(viajes, fecha);
-//    }
+    @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
+    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable LocalDate fecha){
+        return service.getMonopatinesByCantidadViajes(viajes, fecha);
+    }
 
     @GetMapping( "/kms")
     public ResponseEntity<?> getMonopatinesByKms() {
