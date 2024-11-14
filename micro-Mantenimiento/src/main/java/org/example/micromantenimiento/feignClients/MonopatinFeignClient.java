@@ -4,11 +4,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "microservicio-monopatin" ,url = "http://localhost:8094/monopatines")
+@FeignClient(name = "micro-GestorMonopatin" ,url = "http://localhost:8094/monopatines")
 public interface MonopatinFeignClient {
 
     @GetMapping("/{id}")
-    ResponseEntity<Monopatin> getMonopatinById(@PathVariable("id") Long id);
+    Monopatin getMonopatinById(@PathVariable("id") Long id);
     @PutMapping("/{id}")
     ResponseEntity<?> UpdateMonopatin (@PathVariable("id") Long id, @RequestBody Monopatin m);
 }

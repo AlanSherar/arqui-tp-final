@@ -28,8 +28,8 @@ public class MonopatinService {
     private ParadaClient paradaClient;
     @Autowired
     private MantenimientoClient mantenimientoClient;
-    @Autowired
-    private ViajeClient viajeClient;
+//    @Autowired
+//    private ViajeClient viajeClient;
     @Autowired
     private MonopatinRepository MonopatinRepository;
 
@@ -130,9 +130,12 @@ public class MonopatinService {
     public ResponseEntity<String> verificarEstadoMonopatin(Long id) {
         Monopatin monopatin = MonopatinRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Monopatín no encontrado"));
+      ;
         double kilometros = monopatin.getKms();
         if (kilometros >= MAX_KMS) {
+
             monopatin.setDisponible(false);
+            MonopatinRepository.save(monopatin);
             ResponseEntity<String> response = mantenimientoClient.realizarMantenimiento(id);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return ResponseEntity.ok("Monopatín ha sido enviado a mantenimiento.");
@@ -144,18 +147,27 @@ public class MonopatinService {
         return ResponseEntity.ok("Monopatín está disponible.");
     }
 
-    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, LocalDate fecha){
-        List<Monopatin> monopatines;
-        List<Monopatin> monopatinesViaje = new ArrayList<>();
-        monopatines = MonopatinRepository.findAll();
-        for(Monopatin monopatin : monopatines){
-            int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha.getYear());
-            if(cantViajes > nroViajes){
-                monopatinesViaje.add(monopatin);
-            }
+    public ResponseEntity<?> modificarMonopatin(Long id, Monopatin monopatin) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(MonopatinRepository.save(monopatin));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
-        return monopatinesViaje;
+
     }
+
+//    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, LocalDate fecha){
+//        List<Monopatin> monopatines;
+//        List<Monopatin> monopatinesViaje = new ArrayList<>();
+//        monopatines = MonopatinRepository.findAll();
+//        for(Monopatin monopatin : monopatines){
+//            int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha.getYear());
+//            if(cantViajes > nroViajes){
+//                monopatinesViaje.add(monopatin);
+//            }
+//        }
+//        return monopatinesViaje;
+//    }
 
 }
 

@@ -25,38 +25,37 @@ public class MantenimientoService {
     private final int kmsMantenimiento = 50;
 
     public Monopatin obtenerMonopatinPorId(Long monopatinId) {
-        return monopatinFeignClient.getMonopatinById(monopatinId).getBody();
+        return monopatinFeignClient.getMonopatinById(monopatinId);
     }
 
     public void realizarMantenimiento(Long idMonopatin) {
         try {
 
-            ResponseEntity<Monopatin> response = monopatinFeignClient.getMonopatinById(idMonopatin);
-            System.out.println(response);
+            Monopatin monopatin = monopatinFeignClient.getMonopatinById(idMonopatin);
+            System.out.println(monopatin);
 
-            if (response.getStatusCode().is2xxSuccessful()) {
+            if (monopatin==null) {
+                return ;
+            }
 
-                ObjectMapper objectMapper = new ObjectMapper();
+                    System.out.println( "KM MONOPATIN"+monopatin.getKms());
+                     monopatin.setKms(monopatin.getKms() + kmsMantenimiento);
+                    monopatin.setDisponible(true);
 
-                // Convertir la respuesta JSON a un objeto Monopatin
-                Monopatin monopatinFeign = objectMapper.readValue((DataInput) response.getBody(), Monopatin.class);
-                if (monopatinFeign != null) {
-                    System.out.println(monopatinFeign.getKilometros());
-                    monopatinFeign.setKilometros(monopatinFeign.getKilometros() + kmsMantenimiento);
-                    monopatinFeign.setdisponible(true);
-
-                    ResponseEntity<?> updateResponse = monopatinFeignClient.UpdateMonopatin(idMonopatin,monopatinFeign);
+                    ResponseEntity<?> updateResponse = monopatinFeignClient.UpdateMonopatin(idMonopatin,monopatin);
 
                     if (updateResponse.getStatusCode().is2xxSuccessful()) {
+                        System.out.println(monopatin);
                         System.out.println("Monopatín actualizado con éxito.");
                     } else {
                         System.out.println("Error al actualizar el monopatín: " + updateResponse.getStatusCode());
                     }
-                }
-            }
+
+
         } catch (Exception e) {
             System.err.println("Error al realizar mantenimiento: " + e.getMessage());
 
         }
     }
+
 }

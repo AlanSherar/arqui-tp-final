@@ -7,17 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="EurekaServer" />
+        <module name="Micro-GestorDeCuentas" />
         <module name="micro-GestorMonopatin" />
+        <module name="micro-AdminCuentas" />
+        <module name="micro-GestorViajes" />
+        <module name="micro-GestorParadas" />
+        <module name="micro-Mantenimiento" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="EurekaServer" target="17" />
-      <module name="micro-AdminCuentas" target="17" />
       <module name="micro-GestorCuentas" target="17" />
-      <module name="Micro-GestorDeCuentas" target="17" />
-      <module name="micro-GestorParadas" target="17" />
-      <module name="micro-GestorViajes" target="17" />
-      <module name="micro-Mantenimiento" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

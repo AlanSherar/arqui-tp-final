@@ -1,42 +1,35 @@
 package org.example.micromantenimiento.models;
+
+import lombok.Data;
+
+@Data
 public class Monopatin {
 
+
     private Long id;
-    private String modelo;
-    private Integer kilometros;
-    private Boolean disponible;
+    private double kms;
+    private boolean disponible;
+    private double tiempo_de_uso; // a chequear
+    private int cant_viajes;
+    private double tiempo_pausa;
+    private double mantenimiento_tiempo_uso;
+    private double mantenimiento_kms;
+    private int ubicacionX;
+    private int ubicacionY;
 
-    // Getters y setters
-
-    public Long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Monopatin{" +
+                "id=" + id +
+                ", kms=" + kms +
+                ", disponible=" + disponible +
+                ", tiempo_de_uso='" + tiempo_de_uso + '\'' +
+                ", cant_viajes=" + cant_viajes +
+                ", tiempo_pausa='" + tiempo_pausa + '\'' +
+                ", mantenimiento_tiempo_uso=" + mantenimiento_tiempo_uso +
+                ", mantenimiento_kms=" + mantenimiento_kms +
+                '}';
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public Integer getKilometros() {
-        return kilometros;
-    }
-
-    public void setKilometros(Integer kilometros) {
-        this.kilometros = kilometros;
-    }
-
-    public Boolean disponible() {
-        return disponible;
-    }
-
-    public void setdisponible(Boolean disponible) {
-        this.disponible = disponible;
-    }
 }

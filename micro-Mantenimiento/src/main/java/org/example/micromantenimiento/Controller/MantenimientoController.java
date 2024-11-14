@@ -21,6 +21,8 @@ public class MantenimientoController {
 
     @GetMapping("/monopatin/{id}")
     public Monopatin obtenerMonopatinPorId(@PathVariable Long id) {
+
+        System.out.println("llega a controller el monopatin"+id);
         return mantenimientoService.obtenerMonopatinPorId(id);
     }
     @PutMapping("/realizar/{idMonopatin}")

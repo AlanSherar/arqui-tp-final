@@ -28,6 +28,13 @@ public class MonopatinController {
     }
 
     @PutMapping("/{id}")
+    public ResponseEntity<?> modificarMonopatin (@PathVariable Long id, @RequestBody Monopatin monopatin){
+       return service.modificarMonopatin(id,monopatin);
+
+    }
+
+
+    @PutMapping("/verificar/{id}")
     public ResponseEntity<?> verificarEstadoMonopatin(@PathVariable Long id) {
         try {
             System.out.println("request desde mantenimiento");
@@ -37,10 +44,10 @@ public class MonopatinController {
         }
     }
 
-    @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
-    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable LocalDate fecha){
-        return service.getMonopatinesByCantidadViajes(viajes, fecha);
-    }
+//    @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
+//    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable LocalDate fecha){
+//        return service.getMonopatinesByCantidadViajes(viajes, fecha);
+//    }
 
     @GetMapping( "/kms")
     public ResponseEntity<?> getMonopatinesByKms() {
