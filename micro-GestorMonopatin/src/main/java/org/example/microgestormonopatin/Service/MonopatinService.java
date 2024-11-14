@@ -49,20 +49,20 @@ public class MonopatinService {
         return monopatines.stream().map(MonopatinKmsDTO::new).toList();
     }
 
-    public List<MonopatinTiempoDTO> getMonopatinesByPausa() {
+    public List<Monopatin> getMonopatinesByPausa() {
         List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByPausa();
         if (monopatines.isEmpty()) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         }
-        return monopatines.stream().map(MonopatinTiempoDTO::new).toList();
+        return monopatines;
     }
 
-    public List<MonopatinTiempoDTO> getMonopatinesByNotPausa() {
+    public List<Monopatin> getMonopatinesByNotPausa() {
         List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByNotPausa();
         if (monopatines.isEmpty()) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         }
-        return monopatines.stream().map(MonopatinTiempoDTO::new).toList();
+       return monopatines;
     }
 
     public long getMonopatinesEnOperacion() {
@@ -156,16 +156,18 @@ public class MonopatinService {
 
     }
 
-    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, LocalDate fecha){
+    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, int fecha){
        List<Monopatin> monopatines;
       List<Monopatin> monopatinesViaje = new ArrayList<>();
        monopatines = MonopatinRepository.findAll();
        for(Monopatin monopatin : monopatines){
-           int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha.getYear());
+           int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha);
            if(cantViajes > nroViajes){
+               System.out.println(monopatin);
                monopatinesViaje.add(monopatin);
            }
        }
+
        return monopatinesViaje;
    }
 

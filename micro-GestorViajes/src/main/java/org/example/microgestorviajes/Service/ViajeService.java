@@ -96,10 +96,12 @@ public class ViajeService {
 
     public ResponseEntity<?> getViajesByYear(Long idMonopatin, int anio){
         ResponseEntity<Monopatin> monopatin = monopatinClient.getMonopatinById(idMonopatin);
+        System.out.println(monopatin);
         if(monopatin.getStatusCode() != HttpStatus.OK){
             throw new EntityNotFoundException("Error: no existe el monopatín con ID " + idMonopatin);
         }
         int cantidadViajes = viajeRepository.findViajesByYear(idMonopatin, anio);
+        System.out.println("cantidad de viajes "+ cantidadViajes);
         if(cantidadViajes <= 0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron viajes en ese año");
         }

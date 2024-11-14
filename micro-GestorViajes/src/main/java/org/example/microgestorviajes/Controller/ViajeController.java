@@ -82,8 +82,10 @@ public class ViajeController {
 
     @GetMapping("/cantViajes/idMonopatin/{idMonopatin}/year/{anio}")
     public ResponseEntity<?> getCantViajesByYear(@PathVariable Long idMonopatin, @PathVariable int anio){
+        System.out.println("entro");
         try{
             int cantidadViajes = (int) viajeService.getViajesByYear(idMonopatin, anio).getBody();
+            System.out.println(cantidadViajes);
             return ResponseEntity.status(HttpStatus.OK).body(cantidadViajes);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error en el servidor");

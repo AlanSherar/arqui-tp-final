@@ -9,7 +9,7 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
     @Query("SELECT m FROM Monopatin m ORDER BY m.kms desc")
     public List<Monopatin> getMonopatinesByKms();
 
-    @Query("SELECT m FROM Monopatin m ORDER BY m.tiempo_de_uso + m.tiempo_pausa desc")
+    @Query("SELECT m FROM Monopatin m ORDER BY (m.tiempo_de_uso + m.tiempo_pausa) desc")
     public List<Monopatin> getMonopatinesByPausa();
 
     @Query("SELECT m FROM Monopatin m ORDER BY m.tiempo_de_uso desc")

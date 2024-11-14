@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.cloud.openfeign.FeignClient;
 
-@FeignClient(name="micro-GestorMonopatin")
+@FeignClient(name="micro-GestorMonopatin", url = "http://localhost:8094/monopatines/")
 public interface MonopatinClient {
 
-    @GetMapping("/monopatines/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<Monopatin> getMonopatinById(@PathVariable("id") Long id);
 
     @PutMapping("/{id}")

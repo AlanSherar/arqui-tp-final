@@ -45,7 +45,7 @@ public class MonopatinController {
     }
 
     @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
-    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable LocalDate fecha){
+    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable int fecha){
         return service.getMonopatinesByCantidadViajes(viajes, fecha);
     }
 

@@ -3,6 +3,7 @@ package org.example.microadmincuentas.services;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.microadmincuentas.Entities.Tarifa;
 import org.example.microadmincuentas.FeignClients.GestorCuentasClient;
+import org.example.microadmincuentas.FeignClients.monopatinFeignClient;
 import org.example.microadmincuentas.Repository.RepositoryAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,9 @@ public class AdminServices {
     private RepositoryAdmin repository;
     @Autowired
     private GestorCuentasClient feignCuentas;
-//    private  GestorMonopatinClient feignMonopatin;
+    @Autowired
+    private monopatinFeignClient feignMonopatin;
+
     public ResponseEntity<?> AsignarTarifa (Tarifa t){
 
             if(t.getIdTarifa()==null || t.getNombreTarifa()==null ||
