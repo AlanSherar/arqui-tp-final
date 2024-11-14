@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class Monopatin {
 
-
     private Long id;
     private double kms;
     private boolean disponible;

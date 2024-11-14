@@ -18,21 +18,18 @@ public class MantenimientoController {
     @Autowired
     private MantenimientoService mantenimientoService;
 
+    @PutMapping("/verificar/{idMonopatin}")
+    public ResponseEntity<?> RealizarMantenimiento(@PathVariable Long idMonopatin) {
+        try {
+            HttpStatus resStatus = mantenimientoService.realizarMantenimiento(idMonopatin);
 
-    @GetMapping("/monopatin/{id}")
-    public Monopatin obtenerMonopatinPorId(@PathVariable Long id) {
-
-        System.out.println("llega a controller el monopatin"+id);
-        return mantenimientoService.obtenerMonopatinPorId(id);
-    }
-    @PutMapping("/realizar/{idMonopatin}")
-    public ResponseEntity<?> RealizarMantenimiento (@PathVariable Long idMonopatin){
-        try{
-            System.out.println("manteniendo....");
-            mantenimientoService.realizarMantenimiento(idMonopatin);
-           return  ResponseEntity.status(HttpStatus.OK).body("Realizado el mantenimiento ");
-        }catch (Exception e){
-             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al crear un mantenimiento");
+            if (resStatus == HttpStatus.OK) {
+                return ResponseEntity.status(HttpStatus.OK).body("Realizado el mantenimiento ");
+            } else {
+                return ResponseEntity.status(resStatus).body("Error al realizar mantenimiento");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al crear un mantenimiento");
         }
     }
 }
