@@ -1,9 +1,12 @@
-package org.example.micromantenimiento.models;
+package org.example.microadmincuentas.Models;
+
+
 
 import lombok.Data;
 
 @Data
 public class Monopatin {
+
 
     private Long id;
     private double kms;

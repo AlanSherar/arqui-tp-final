@@ -7,20 +7,20 @@ import java.util.List;
 public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
 
     @Query("SELECT m FROM Monopatin m ORDER BY m.kms desc")
-    List<Monopatin> getMonopatinesByKms();
+    public List<Monopatin> getMonopatinesByKms();
 
-    @Query("SELECT m FROM Monopatin m ORDER BY m.tiempo_de_uso + m.tiempo_pausa desc")
-    List<Monopatin> getMonopatinesByPausa();
+    @Query("SELECT m FROM Monopatin m ORDER BY (m.tiempo_de_uso + m.tiempo_pausa) desc")
+    public List<Monopatin> getMonopatinesByPausa();
 
     @Query("SELECT m FROM Monopatin m ORDER BY m.tiempo_de_uso desc")
-    List<Monopatin> getMonopatinesByNotPausa();
+    public List<Monopatin> getMonopatinesByNotPausa();
 
     @Query("SELECT COUNT(*) FROM Monopatin m WHERE m.disponible=true")
-    long getMonopatinesEnOperacion();
+    public long getMonopatinesEnOperacion();
 
     @Query("SELECT COUNT(*) " + "FROM Monopatin m " + "WHERE m.disponible=false")
 
-    long getMonopatinesEnMantenimiento();
+    public long getMonopatinesEnMantenimiento();
 
 
 

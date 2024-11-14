@@ -1,4 +1,4 @@
-package org.example.microadmincuentas.FeignClients;
+package org.example.microadmincuentas.Models;
 
 import jakarta.persistence.Id;
 
