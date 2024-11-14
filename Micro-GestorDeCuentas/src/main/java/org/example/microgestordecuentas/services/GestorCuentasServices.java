@@ -78,12 +78,18 @@ public class GestorCuentasServices {
         return  cuentasRepository.save(cuentaBd);
     }
 
-    public void deleteCuentaById(long id) {
+    public ResponseEntity<?> deleteCuentaById(long id) {
         if (!cuentasRepository.existsById(id)) {
-                throw new EntityNotFoundException("Entidad no encontrada: " + id);
-            }
-        cuentasRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("no se encontro la cuenta asociada");
+        }
+          ;
 
+        try {
+            cuentasRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Cuenta eliminada con éxito");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar la cuenta");
+        }
     }
 
     public ResponseEntity<?> asociar(Long idUsuario, Long idCuenta) {

@@ -10,10 +10,8 @@ import org.example.microgestorviajes.clienteFeign.Monopatin;
 import java.util.ArrayList;
 
 public class Parada {
-
     private Long id;
     private ArrayList<Monopatin> monopatines;
-
     public long getId() {
         return id;
     }

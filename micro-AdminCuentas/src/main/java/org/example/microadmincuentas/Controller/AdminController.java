@@ -9,16 +9,45 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private AdminServices serviceAdmin;
-    @PostMapping("/Tarifas")
+
+    @GetMapping("/tarifas")
+    public ResponseEntity <?>getAll(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.getAll());
+        }catch (Exception E){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(E);
+        }
+    }
+    @GetMapping("tarifas/{id}")
+    public ResponseEntity<?> getById(@PathVariable long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.getTarifaById(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
+        }
+    }
+    @PostMapping("/tarifas")
     public ResponseEntity<?> DefinirTarifa(@RequestBody Tarifa t){
 
            return serviceAdmin.AsignarTarifa(t);
 
+    }
+    @DeleteMapping("/tarifas/{id}")
+    public ResponseEntity<?> eliminarTarifa(@PathVariable Long id){
+
+
+        return ResponseEntity.status(serviceAdmin.eliminarTarifa(id)).body("");
+    }
+    @PutMapping("tarifas/{id}")
+    public ResponseEntity <?> modificarTarifa( @PathVariable  Long id, @RequestBody Tarifa t){
+        return ResponseEntity.status(serviceAdmin.modificarTarifa(id,t)).body("");
     }
     @PutMapping("/Cuentas/{id}/anularCuenta")
     public ResponseEntity<?> anularCuenta(@PathVariable Long id){

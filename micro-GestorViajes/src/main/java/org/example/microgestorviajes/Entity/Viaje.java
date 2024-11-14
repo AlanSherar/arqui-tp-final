@@ -1,6 +1,8 @@
 package org.example.microgestorviajes.Entity;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,13 +15,18 @@ public class Viaje {
     private Long monopatinId;
     private Long usuarioId;
     private Long paradaId;
-    private String fecha;
+    private Long TarifaId;
+    private Date fecha;
     private int horaInicio;
     private double precio;
     private int tiempoDePausa;
     private boolean enCurso;
 
     public Viaje(){}
+
+    public Long getTarifaId() {
+        return TarifaId;
+    }
 
     public boolean getEnCurso(){
         return enCurso;
@@ -85,11 +92,11 @@ public class Viaje {
         this.horaInicio = horaInicio;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 }

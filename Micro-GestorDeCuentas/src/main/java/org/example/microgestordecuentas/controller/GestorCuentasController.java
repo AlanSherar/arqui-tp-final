@@ -118,12 +118,11 @@ public class GestorCuentasController {
 
     @DeleteMapping("/CuentasAsociadas/{id}")
     public ResponseEntity<?> deleteCuenta(@PathVariable long id) {
-        try {
-            service.deleteCuentaById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("cuenta eliminada");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al eliminar el usuario");
-        }
+
+            System.out.println("eliminando..." );
+             return service.deleteCuentaById(id);
+
+
     }
     @Transactional
     @PutMapping("/CuentasAsociadas/Asociar/{idUsuario}/Cuenta/{idCuenta}")
