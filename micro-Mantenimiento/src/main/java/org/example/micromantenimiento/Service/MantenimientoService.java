@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import reactor.core.publisher.Mono;
 
 import java.io.DataInput;
 
@@ -21,41 +22,49 @@ public class MantenimientoService {
     private MantenimientoRepository mantenimientoRepository;
 
     @Autowired
-    private MonopatinFeignClient monopatinFeignClient;
+    private MonopatinFeignClient monopatinClient;
     private final int kmsMantenimiento = 50;
 
-    public Monopatin obtenerMonopatinPorId(Long monopatinId) {
-        return monopatinFeignClient.getMonopatinById(monopatinId);
-    }
-
-    public void realizarMantenimiento(Long idMonopatin) {
+    public HttpStatus realizarMantenimiento(Long idMonopatin) {
         try {
 
-            Monopatin monopatin = monopatinFeignClient.getMonopatinById(idMonopatin);
-            System.out.println(monopatin);
+            ResponseEntity<Monopatin> res = monopatinClient.getMonopatinById(idMonopatin);
 
-            if (monopatin==null) {
-                return ;
+            if (res.getStatusCode() != HttpStatus.OK) {
+                if (res.getStatusCode() == HttpStatus.NOT_FOUND) {
+                    return HttpStatus.NOT_FOUND;
+                } else {
+                    return HttpStatus.INTERNAL_SERVER_ERROR;
+                }
             }
 
-                    System.out.println( "KM MONOPATIN"+monopatin.getKms());
-                     monopatin.setKms(monopatin.getKms() + kmsMantenimiento);
-                    monopatin.setDisponible(true);
+            Monopatin monopatin = res.getBody();
 
-                    ResponseEntity<?> updateResponse = monopatinFeignClient.UpdateMonopatin(idMonopatin,monopatin);
+            if (monopatin.getKms() >= monopatin.getMantenimiento_kms()) { // Necesita mantenimiento?
 
-                    if (updateResponse.getStatusCode().is2xxSuccessful()) {
-                        System.out.println(monopatin);
-                        System.out.println("Monopatín actualizado con éxito.");
-                    } else {
-                        System.out.println("Error al actualizar el monopatín: " + updateResponse.getStatusCode());
-                    }
+                monopatin.setMantenimiento_kms(monopatin.getKms() + kmsMantenimiento);
+                monopatin.setDisponible(true);
 
+                ResponseEntity<Monopatin> updateResponse = monopatinClient.updateMonopatin(idMonopatin, monopatin);
 
+            /*if (updateResponse.getStatusCode().is2xxSuccessful()) {
+                return HttpStatus.OK;
+            } else {
+                return HttpStatus.INTERNAL_SERVER_ERROR;
+            }
+*/
+                if (updateResponse.getStatusCode() == HttpStatus.OK) {
+                    return HttpStatus.OK;
+                } else {
+                    return HttpStatus.INTERNAL_SERVER_ERROR;
+                }
+
+            }
+            return HttpStatus.BAD_REQUEST;
         } catch (Exception e) {
             System.err.println("Error al realizar mantenimiento: " + e.getMessage());
-
+            return HttpStatus.INTERNAL_SERVER_ERROR;
         }
-    }
 
+    }
 }
