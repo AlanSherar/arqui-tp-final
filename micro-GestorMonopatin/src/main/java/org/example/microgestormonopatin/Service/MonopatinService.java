@@ -41,28 +41,28 @@ public class MonopatinService {
         return monopatines;
     }
 
-    public List<MonopatinKmsDTO> getMonopatinesByKms() {
+    public List<Monopatin> getMonopatinesByKms() {
         List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByKms();
         if (monopatines.isEmpty()) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         }
-        return monopatines.stream().map(MonopatinKmsDTO::new).toList();
+        return monopatines;
     }
 
-    public List<MonopatinTiempoDTO> getMonopatinesByPausa() {
+    public List<Monopatin> getMonopatinesByPausa() {
         List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByPausa();
         if (monopatines.isEmpty()) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         }
-        return monopatines.stream().map(MonopatinTiempoDTO::new).toList();
+        return monopatines;
     }
 
-    public List<MonopatinTiempoDTO> getMonopatinesByNotPausa() {
+    public List<Monopatin> getMonopatinesByNotPausa() {
         List<Monopatin> monopatines = MonopatinRepository.getMonopatinesByNotPausa();
         if (monopatines.isEmpty()) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         }
-        return monopatines.stream().map(MonopatinTiempoDTO::new).toList();
+        return monopatines;
     }
 
     public long getMonopatinesEnOperacion() {
@@ -158,7 +158,7 @@ public class MonopatinService {
 
     public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, LocalDate fecha){
        List<Monopatin> monopatines;
-      List<Monopatin> monopatinesViaje = new ArrayList<>();
+       List<Monopatin> monopatinesViaje = new ArrayList<>();
        monopatines = MonopatinRepository.findAll();
        for(Monopatin monopatin : monopatines){
            int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha.getYear());

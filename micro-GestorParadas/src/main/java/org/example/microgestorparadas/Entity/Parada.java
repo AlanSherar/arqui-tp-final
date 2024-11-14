@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
-import org.example.microgestorparadas.feignClients.Monopatin;
 
 
 @Entity
@@ -18,7 +16,6 @@ public class Parada {
     private Long id;
     private int  ubicacionX;
     private int ubicacionY;
-
 
 
     public Long getId() {

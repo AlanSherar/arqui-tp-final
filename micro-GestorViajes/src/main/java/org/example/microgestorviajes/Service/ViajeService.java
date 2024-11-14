@@ -102,8 +102,9 @@ public class ViajeService {
         int cantidadViajes = viajeRepository.findViajesByYear(idMonopatin, anio);
         if(cantidadViajes <= 0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron viajes en ese año");
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(cantidadViajes);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(cantidadViajes);
     }
 
 }

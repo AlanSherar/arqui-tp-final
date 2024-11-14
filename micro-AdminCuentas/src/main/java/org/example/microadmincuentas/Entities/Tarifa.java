@@ -25,4 +25,5 @@ public class Tarifa {
                 ", fecha_actualizacion='" + fecha_actualizacion + '\'' +
                 '}';
     }
+
 }

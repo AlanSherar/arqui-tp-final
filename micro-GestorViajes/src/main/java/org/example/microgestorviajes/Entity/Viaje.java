@@ -16,7 +16,7 @@ public class Viaje {
     private Long usuarioId;
     private Long paradaId;
     private Long TarifaId;
-    private Date fecha;
+    private LocalDate fecha;
     private int horaInicio;
     private double precio;
     private int tiempoDePausa;
@@ -92,11 +92,11 @@ public class Viaje {
         this.horaInicio = horaInicio;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 }
