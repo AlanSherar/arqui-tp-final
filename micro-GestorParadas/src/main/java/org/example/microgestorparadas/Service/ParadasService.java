@@ -60,9 +60,11 @@ public class ParadasService {
     }
 
     public Parada updateParada(Long id, Parada p) {
-        Parada paradaDb = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con ID: " + id));;
-            paradaDb.setGps(p.getGps());
-            return repository.save(paradaDb);
+        Parada paradaDb = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Parada no encontrada con ID: " + id));
+        paradaDb.setUbicacionX(p.getUbicacionX());
+        paradaDb.setUbicacionY(p.getUbicacionY());
+        return repository.save(paradaDb);
     }
 
     public ResponseEntity<?> findByUbicacion(int x, int y){

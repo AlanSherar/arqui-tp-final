@@ -28,8 +28,8 @@ public class MonopatinService {
     private ParadaClient paradaClient;
     @Autowired
     private MantenimientoClient mantenimientoClient;
-//    @Autowired
-//    private ViajeClient viajeClient;
+    @Autowired
+    private ViajeClient viajeClient;
     @Autowired
     private MonopatinRepository MonopatinRepository;
 
@@ -156,18 +156,18 @@ public class MonopatinService {
 
     }
 
-//    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, LocalDate fecha){
-//        List<Monopatin> monopatines;
-//        List<Monopatin> monopatinesViaje = new ArrayList<>();
-//        monopatines = MonopatinRepository.findAll();
-//        for(Monopatin monopatin : monopatines){
-//            int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha.getYear());
-//            if(cantViajes > nroViajes){
-//                monopatinesViaje.add(monopatin);
-//            }
-//        }
-//        return monopatinesViaje;
-//    }
+    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, LocalDate fecha){
+       List<Monopatin> monopatines;
+      List<Monopatin> monopatinesViaje = new ArrayList<>();
+       monopatines = MonopatinRepository.findAll();
+       for(Monopatin monopatin : monopatines){
+           int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha.getYear());
+           if(cantViajes > nroViajes){
+               monopatinesViaje.add(monopatin);
+           }
+       }
+       return monopatinesViaje;
+   }
 
 }
 

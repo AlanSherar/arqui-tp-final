@@ -7,14 +7,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-@Service
-@FeignClient(name="micro-GestorMonopatin")
+
+@FeignClient(name="micro-gestorCuentas" ,url="http://localhost:8091/GestorCuentas")
 public interface GestorCuentasClient {
 
-    @GetMapping("/GestorCuentas/{id}")
-    Usuario getMonopatinById(@PathVariable("id") Long id);
-    @DeleteMapping("/GestorCuentas/CuentasAsociadas/{id}")
-    public ResponseEntity<?> anularCuenta(@PathVariable Long id);
 
+    @DeleteMapping("/CuentasAsociadas/{id}")
+    String anularCuenta(@PathVariable Long id);
 }
 
