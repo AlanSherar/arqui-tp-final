@@ -8,42 +8,21 @@ import lombok.Data;
 import java.util.Date;
 
 @Entity
+@Data
 public class Tarifa {
     @Id
     private Long idTarifa;
     private String nombreTarifa;
-    private double PrecioTarifa;
-    private Date FechaActualizacion;
+    private int precio_tarifa;
+    private String fecha_actualizacion;
 
-    public Long getIdTarifa() {
-        return idTarifa;
-    }
-
-    public void setIdTarifa(Long idTarifa) {
-        this.idTarifa = idTarifa;
-    }
-
-    public String getNombreTarifa() {
-        return nombreTarifa;
-    }
-
-    public void setNombreTarifa(String nombreTarifa) {
-        this.nombreTarifa = nombreTarifa;
-    }
-
-    public double getPrecioTarifa() {
-        return PrecioTarifa;
-    }
-
-    public void setPrecioTarifa(double precioTarifa) {
-        PrecioTarifa = precioTarifa;
-    }
-
-    public Date getFechaActualizacion() {
-        return FechaActualizacion;
-    }
-
-    public void setFechaActualizacion(Date fechaActualizacion) {
-        FechaActualizacion = fechaActualizacion;
+    @Override
+    public String toString() {
+        return "Tarifa{" +
+                "idTarifa=" + idTarifa +
+                ", nombreTarifa='" + nombreTarifa + '\'' +
+                ", precio_tarifa=" + precio_tarifa +
+                ", fecha_actualizacion='" + fecha_actualizacion + '\'' +
+                '}';
     }
 }

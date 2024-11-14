@@ -1,0 +1,10 @@
+services:
+  mysql_AdminCuentas:
+    container_name: ContenedorAdminCuentas
+    image: mysql:8.3.0
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=microAdminCuentaDB
+      - MYSQL_USERNAME=root
+    ports:
+      - "127.0.0.1:3310:3306"

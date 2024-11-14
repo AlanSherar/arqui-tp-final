@@ -45,7 +45,7 @@ public class MantenimientoService {
                     ResponseEntity<?> updateResponse = monopatinFeignClient.UpdateMonopatin(idMonopatin,monopatin);
 
                     if (updateResponse.getStatusCode().is2xxSuccessful()) {
-                        System.out.println(monopatin);
+                        System.out.println(monopatinFeignClient.getMonopatinById(idMonopatin));
                         System.out.println("Monopatín actualizado con éxito.");
                     } else {
                         System.out.println("Error al actualizar el monopatín: " + updateResponse.getStatusCode());
