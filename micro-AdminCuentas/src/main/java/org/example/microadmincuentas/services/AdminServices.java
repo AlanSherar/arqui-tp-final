@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.example.microadmincuentas.Entities.Tarifa;
 import org.example.microadmincuentas.FeignClients.GestorCuentasClient;
 import org.example.microadmincuentas.FeignClients.monopatinFeignClient;
+import org.example.microadmincuentas.Models.Monopatin;
 import org.example.microadmincuentas.Repository.RepositoryAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class AdminServices {
     private GestorCuentasClient feignCuentas;
     @Autowired
     private monopatinFeignClient feignMonopatin;
+
 
     public ResponseEntity<?> AsignarTarifa (Tarifa t){
 
@@ -83,4 +85,27 @@ public class AdminServices {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tarifa no encontrada con el id: " + id));
     }
+     public  List<Monopatin> getMonopatinesByCantViajes (int cantViajes, int fecha){
+         try{
+             ResponseEntity<List<Monopatin>>  response =feignMonopatin.getviajesbyCantViajesAndFecha(cantViajes,fecha);
+             if(response.getStatusCode()==HttpStatus.INTERNAL_SERVER_ERROR){
+                 return null;
+             }
+             return  response.getBody();
+         }catch (Exception e ){
+             return null;
+         }
+
+     }
+     public  String getEstadisticas(){
+        try{
+            ResponseEntity<String> response = feignMonopatin.getEstadisticas();
+            if(response.getStatusCode()==HttpStatus.INTERNAL_SERVER_ERROR){
+                return  "error ";
+            }
+            return  response.getBody();
+        }catch (Exception e) {
+            return "error " + e.getMessage();
+        }
+     }
 }

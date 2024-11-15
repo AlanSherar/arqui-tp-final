@@ -131,7 +131,7 @@ public class MonopatinService {
                 System.out.println(7);
                 monopatin.setId(id);
                 return MonopatinRepository.save(monopatin);
-            } else {
+            }else {
                 return null;
             }
         } catch (Exception e) {
@@ -140,19 +140,14 @@ public class MonopatinService {
 
     }
 
-    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, int fecha) {
+    public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, int anio){
         List<Monopatin> monopatines;
         List<Monopatin> monopatinesViaje = new ArrayList<>();
         monopatines = MonopatinRepository.findAll();
-        for (Monopatin monopatin : monopatines) {
-            int cantViajes = viajeClient.getCantViajesByYear(monopatin.getId(), fecha);
-            if (cantViajes > nroViajes) {
-                monopatinesViaje.add(monopatin);
-            }
+
+            List<Monopatin> monopatinesConCantViajes = viajeClient.getCantViajesByYear(nroViajes,monopatines, anio);
+            return  monopatinesConCantViajes;
         }
-        return monopatinesViaje;
+
     }
-}
-
-
 

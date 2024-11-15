@@ -3,6 +3,7 @@ package org.example.microgestorviajes.Controller;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.microgestorviajes.Entity.Viaje;
 import org.example.microgestorviajes.Service.ViajeService;
+import org.example.microgestorviajes.clienteFeign.Monopatin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -80,13 +81,13 @@ public class ViajeController {
         }
     }
 
-    @GetMapping("/cantViajes/idMonopatin/{idMonopatin}/year/{anio}")
-    public ResponseEntity<?> getCantViajesByYear(@PathVariable Long idMonopatin, @PathVariable int anio){
+    @GetMapping("/cantViajes/{cantViajes}/year/{anio}")
+    public ResponseEntity<?> getCantViajesByYear(@PathVariable int cantViajes, @RequestBody List<Monopatin> monopatines , @PathVariable int anio){
         System.out.println("entro");
         try{
-            int cantidadViajes = (int) viajeService.getViajesByYear(idMonopatin, anio).getBody();
-            System.out.println(cantidadViajes);
-            return ResponseEntity.status(HttpStatus.OK).body(cantidadViajes);
+            List<Monopatin> monopatinesViajes =  viajeService.getViajesByYear(cantViajes,monopatines, anio);
+
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinesViajes);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error en el servidor");
         }
