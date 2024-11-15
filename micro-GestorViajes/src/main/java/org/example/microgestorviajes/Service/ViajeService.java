@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.example.microgestorviajes.clienteFeign.ParadaClient;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -79,13 +80,15 @@ public class ViajeService {
     }
 
     private double calcularCosto(Viaje viaje, double tarifa) {
-          return 1; //El uso del monopatín es por tiempo,
-//        comienza a consumirse el crédito cuando se activa el monopatín, y esto permitirá que se encienda en
-//        ese momento. A partir de allí el usuario del servicio podrá utilizar el monopatín, y una vez que no lo
-//        requiera más deberá dejarlo en una parada previamente establecida. En este momento selecciona la
-//        opción para cortar el servicio, una vez estacionado el monopatín, finalizando el viaje. Al finalizar el viaje
-//        se va a registrar la fecha y hora de finalización y los kilómetros recorridos
-    }
+
+            int horaInicio = viaje.getHoraInicio();
+            LocalTime ahora = LocalTime.now();
+            int horaActual = ahora.getHour();  // Solo la hora (0-23)
+            int duracionEnHoras = horaActual - horaInicio;
+            double costoTotal = duracionEnHoras * tarifa;
+
+            return costoTotal;
+   }
 
     public void deleteViajeByID(long id) {
         if (!viajeRepository.existsById(id)) {
@@ -94,19 +97,21 @@ public class ViajeService {
         viajeRepository.deleteById(id);
     }
 
-    public ResponseEntity<?> getViajesByYear(Long idMonopatin, int anio){
-        ResponseEntity<Monopatin> monopatin = monopatinClient.getMonopatinById(idMonopatin);
-        System.out.println(monopatin);
-        if(monopatin.getStatusCode() != HttpStatus.OK){
-            throw new EntityNotFoundException("Error: no existe el monopatín con ID " + idMonopatin);
+    public List<Monopatin> getViajesByYear(int cantViajes, List<Monopatin> monopatines, int anio){
+        for( Monopatin m : monopatines){
+            if(m!=null){
+                if(viajeRepository.findViajesByYear(m.getId(), anio)<=cantViajes){
+                    monopatines.remove(m);
+                }
+            }
+
         }
-        int cantidadViajes = viajeRepository.findViajesByYear(idMonopatin, anio);
-        System.out.println("cantidad de viajes "+ cantidadViajes);
-        if(cantidadViajes <= 0){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron viajes en ese año");
-        }else{
-            return ResponseEntity.status(HttpStatus.OK).body(cantidadViajes);
-        }
+
+
+
+
+
+        return monopatines;
     }
 
 }

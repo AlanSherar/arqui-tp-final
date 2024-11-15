@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
     @Autowired
     private AdminServices serviceAdmin;
 
@@ -27,7 +26,6 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(E);
         }
     }
-
     @GetMapping("tarifas/{id}")
     public ResponseEntity<?> getById(@PathVariable long id){
         try{
@@ -39,11 +37,15 @@ public class AdminController {
 
     @PostMapping("/tarifas")
     public ResponseEntity<?> DefinirTarifa(@RequestBody Tarifa t){
+
            return serviceAdmin.AsignarTarifa(t);
+
     }
 
     @DeleteMapping("/tarifas/{id}")
     public ResponseEntity<?> eliminarTarifa(@PathVariable Long id){
+
+
         return ResponseEntity.status(serviceAdmin.eliminarTarifa(id)).body("");
     }
 
@@ -51,11 +53,30 @@ public class AdminController {
     public ResponseEntity <?> modificarTarifa( @PathVariable  Long id, @RequestBody Tarifa t){
         return ResponseEntity.status(serviceAdmin.modificarTarifa(id,t)).body("");
     }
-
-    @PutMapping("/Cuentas/{id}/anularCuenta")
+    @PutMapping("/cuentas/{id}/anularCuenta")
     public ResponseEntity<?> anularCuenta(@PathVariable Long id){
+
             return serviceAdmin.anularCuenta(id);
+
     }
+    @GetMapping("/monopatines/cantViajes/{viajes}/fecha/{fecha}")
+    public  ResponseEntity<?>  getMonopatinesByCantViajes(@PathVariable int viajes, @PathVariable int fecha){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.getMonopatinesByCantViajes(viajes,fecha));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al obtener los datos1");
+        }
+    }
+    @GetMapping("monopatines/estadisticas")
+    public ResponseEntity<?> getEstadisticas(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.getEstadisticas());
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error ");
+        }
+    }
+
+
 
 
 }
