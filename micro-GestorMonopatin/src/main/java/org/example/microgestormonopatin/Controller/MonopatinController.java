@@ -1,5 +1,6 @@
 package org.example.microgestormonopatin.Controller;
 
+import org.apache.http.protocol.HTTP;
 import org.example.microgestormonopatin.Entity.Monopatin;
 import org.example.microgestormonopatin.Service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,12 @@ public class MonopatinController {
     }
 
     @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
-    public List<Monopatin> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable int fecha){
-        return service.getMonopatinesByCantidadViajes(viajes, fecha);
+    public ResponseEntity<List<Monopatin>> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable int fecha){
+       try {
+           return ResponseEntity.status(HttpStatus.OK).body(service.getMonopatinesByCantidadViajes(viajes, fecha));
+       }catch (Exception e){
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+       }
     }
 
     @GetMapping("/kms")
