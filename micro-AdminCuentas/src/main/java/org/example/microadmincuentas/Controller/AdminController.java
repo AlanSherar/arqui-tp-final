@@ -77,6 +77,13 @@ public class AdminController {
     }
 
 
-
+    @PutMapping("/tarifa/precioNuevo/{precio}")
+    public ResponseEntity<?> actualizarPrecio(@PathVariable int precio, @RequestBody Tarifa t){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.actualizarPrecios(precio, t));
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+        }
+    }
 
 }

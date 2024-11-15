@@ -11,5 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public interface ParadaClient {
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id);
+    ResponseEntity<?> getById(@PathVariable Long id);
+
+
 }

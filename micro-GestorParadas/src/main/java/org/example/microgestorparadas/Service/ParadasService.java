@@ -68,7 +68,9 @@ public class ParadasService {
     }
 
     public ResponseEntity<?> findByUbicacion(int x, int y){
+
         return repository.getByUbicacion(x, y);
     }
+
 
 }

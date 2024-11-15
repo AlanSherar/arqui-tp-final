@@ -27,12 +27,15 @@ public class MonopatinService {
     private ParadaClient paradaClient;
     @Autowired
     private MantenimientoClient mantenimientoClient;
-        @Autowired
+    @Autowired
     private ViajeClient viajeClient;
     @Autowired
     private MonopatinRepository MonopatinRepository;
     @Autowired
     private MonopatinRepository monopatinRepository;
+
+    private int CercaniaX = 30;
+    private int CercaniaY = 30;
 
     public List<Monopatin> getAll() {
         List<Monopatin> monopatines = MonopatinRepository.findAll();
@@ -74,7 +77,7 @@ public class MonopatinService {
     }
 
     public long getMonopatinesEnMantenimiento() {
-        Long CantMonopatines = MonopatinRepository.getMonopatinesEnOperacion();
+        Long CantMonopatines = MonopatinRepository.getMonopatinesEnMantenimiento();
         if (CantMonopatines == null) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         } else return CantMonopatines;
@@ -104,11 +107,8 @@ public class MonopatinService {
         }
 
         //System.out.println(paradaClient.getById(monopatin.getId_parada()));
-
         Monopatin savedMonopatin = MonopatinRepository.save(monopatin);
-
         System.out.println(savedMonopatin);
-
         return savedMonopatin;
     }
 
@@ -147,7 +147,15 @@ public class MonopatinService {
 
             List<Monopatin> monopatinesConCantViajes = viajeClient.getCantViajesByYear(nroViajes,monopatines, anio);
             return  monopatinesConCantViajes;
+    }
+
+    public List<Monopatin> getCercanosZona(int x, int y){
+        List<Monopatin> monopatines = monopatinRepository.getCercanosZona(x,y,CercaniaX,CercaniaY);
+        if (monopatines.isEmpty()) {
+            throw new IllegalStateException("No hay monopatines disponibles.");
         }
+        return monopatines;
+    }
 
 }
 

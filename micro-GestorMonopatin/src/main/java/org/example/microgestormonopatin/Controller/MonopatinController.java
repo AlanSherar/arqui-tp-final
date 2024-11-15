@@ -118,6 +118,15 @@ public class MonopatinController {
         }
     }
 
+    @GetMapping("/cercanos/ubicacionX/{x}/ubicacionY/{y}")
+    public ResponseEntity<?> getCercanosZona(@PathVariable int x, @PathVariable int y) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.getCercanosZona(x,y));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
+        }
+    }
+
 }
 
 

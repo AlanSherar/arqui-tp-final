@@ -11,11 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AdminServices {
+
     @Autowired
     private RepositoryAdmin repository;
     @Autowired
@@ -109,4 +112,14 @@ public class AdminServices {
             return "error " + e.getMessage();
         }
      }
+
+     public ResponseEntity<?> actualizarPrecios(int precio, Tarifa t){
+        LocalDate fechaActual = LocalDate.now();
+        if (t.getFecha_actualizacion() == fechaActual){
+            t.setPrecio_tarifa(precio);
+            ResponseEntity.status(HttpStatus.OK).body(repository.save(t));
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al actualizar el precio");
+     }
+
 }

@@ -11,4 +11,8 @@ public interface ParadasRepository extends JpaRepository<Parada, Long> {
     @Query("SELECT p FROM Parada p WHERE p.ubicacionX = :x AND p.ubicacionY = :y")
     ResponseEntity<Parada> getByUbicacion(int x, int y);
 
+
+
+
+
 }

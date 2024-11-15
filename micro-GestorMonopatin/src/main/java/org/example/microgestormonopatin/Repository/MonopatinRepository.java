@@ -19,9 +19,15 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
     public long getMonopatinesEnOperacion();
 
     @Query("SELECT COUNT(*) " + "FROM Monopatin m " + "WHERE m.disponible=false")
-
     public long getMonopatinesEnMantenimiento();
 
+    @Query ("SELECT m FROM Monopatin m " +
+            "where m.ubicacionX <= :x + :CercaniaX " +
+            "AND m.ubicacionX >= :x - :CercaniaX " +
+            "AND m.ubicacionY <= :y + :CercaniaY " +
+            "AND m.ubicacionY >= :y - :CercaniaY " +
+            "AND m.disponible = true")
+    public List<Monopatin> getCercanosZona(int x, int y, int CercaniaX, int CercaniaY);
 
 
 }
