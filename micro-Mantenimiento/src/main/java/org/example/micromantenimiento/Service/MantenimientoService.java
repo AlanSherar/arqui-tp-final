@@ -23,7 +23,8 @@ public class MantenimientoService {
 
     @Autowired
     private MonopatinFeignClient monopatinClient;
-    private final int kmsMantenimiento = 50;
+    private final int kmsMantenimiento = 500;
+    private final double tiempoMantenimiento = 200;
 
     public HttpStatus realizarMantenimiento(Long idMonopatin) {
         try {
@@ -40,9 +41,11 @@ public class MantenimientoService {
 
             Monopatin monopatin = res.getBody();
 
-            if (monopatin.getKms() >= monopatin.getMantenimiento_kms()) { // Necesita mantenimiento?
+            if (monopatin.getKms() >= monopatin.getMantenimiento_kms() ||
+                monopatin.getTiempo_de_uso() >= monopatin.getMantenimiento_tiempo_uso()) { // Necesita mantenimiento?
 
-                monopatin.setMantenimiento_kms(monopatin.getKms() + kmsMantenimiento);
+                monopatin.setMantenimiento_kms(monopatin.getKms() + kmsMantenimiento); // mantenimiento cada 500 kilometros
+                monopatin.setMantenimiento_tiempo_uso(monopatin.getTiempo_de_uso() + tiempoMantenimiento); // mantenimiento cada 200 horas
                 monopatin.setDisponible(true);
 
                 ResponseEntity<Monopatin> updateResponse = monopatinClient.updateMonopatin(idMonopatin, monopatin);

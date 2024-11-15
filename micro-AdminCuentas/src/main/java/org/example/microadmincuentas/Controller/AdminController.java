@@ -17,6 +17,8 @@ public class AdminController {
     @Autowired
     private AdminServices serviceAdmin;
 
+
+
     @GetMapping("/tarifas")
     public ResponseEntity <?>getAll(){
         try{
