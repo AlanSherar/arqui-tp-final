@@ -2,6 +2,7 @@ package org.example.microadmincuentas.Controller;
 
 import org.apache.http.impl.bootstrap.HttpServer;
 import org.example.microadmincuentas.Entities.Tarifa;
+import org.example.microadmincuentas.Models.Monopatin;
 import org.example.microadmincuentas.services.AdminServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     private AdminServices serviceAdmin;
 
@@ -25,6 +27,7 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(E);
         }
     }
+
     @GetMapping("tarifas/{id}")
     public ResponseEntity<?> getById(@PathVariable long id){
         try{
@@ -33,30 +36,26 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
+
     @PostMapping("/tarifas")
     public ResponseEntity<?> DefinirTarifa(@RequestBody Tarifa t){
-
            return serviceAdmin.AsignarTarifa(t);
-
     }
+
     @DeleteMapping("/tarifas/{id}")
     public ResponseEntity<?> eliminarTarifa(@PathVariable Long id){
-
-
         return ResponseEntity.status(serviceAdmin.eliminarTarifa(id)).body("");
     }
+
     @PutMapping("tarifas/{id}")
     public ResponseEntity <?> modificarTarifa( @PathVariable  Long id, @RequestBody Tarifa t){
         return ResponseEntity.status(serviceAdmin.modificarTarifa(id,t)).body("");
     }
+
     @PutMapping("/Cuentas/{id}/anularCuenta")
     public ResponseEntity<?> anularCuenta(@PathVariable Long id){
-
             return serviceAdmin.anularCuenta(id);
-
     }
-
-
 
 
 }

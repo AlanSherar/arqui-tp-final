@@ -28,7 +28,7 @@ public class MonopatinService {
     @Autowired
     private MantenimientoClient mantenimientoClient;
     //    @Autowired
-//    private ViajeClient viajeClient;
+    //    private ViajeClient viajeClient;
     @Autowired
     private MonopatinRepository MonopatinRepository;
     @Autowired

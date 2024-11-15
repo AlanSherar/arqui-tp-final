@@ -32,6 +32,7 @@ public class AdminServices {
             return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(t));
 
     }
+
     public ResponseEntity<?> anularCuenta(Long id){
         String response =feignCuentas.anularCuenta(id);
         System.out.println( "res "+ response);
