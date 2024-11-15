@@ -46,7 +46,6 @@ public class ViajeController {
         }
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<?> updateViaje(@PathVariable long id, @RequestBody Viaje v) {
         try {
@@ -83,7 +82,6 @@ public class ViajeController {
 
     @GetMapping("/cantViajes/{cantViajes}/year/{anio}")
     public ResponseEntity<?> getCantViajesByYear(@PathVariable int cantViajes, @RequestBody List<Monopatin> monopatines , @PathVariable int anio){
-        System.out.println("entro");
         try{
             List<Monopatin> monopatinesViajes =  viajeService.getViajesByYear(cantViajes,monopatines, anio);
 

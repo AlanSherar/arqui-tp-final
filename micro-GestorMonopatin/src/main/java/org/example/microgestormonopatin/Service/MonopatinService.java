@@ -142,12 +142,11 @@ public class MonopatinService {
 
     public List<Monopatin> getMonopatinesByCantidadViajes(int nroViajes, int anio){
         List<Monopatin> monopatines;
-        List<Monopatin> monopatinesViaje = new ArrayList<>();
         monopatines = MonopatinRepository.findAll();
 
-            List<Monopatin> monopatinesConCantViajes = viajeClient.getCantViajesByYear(nroViajes,monopatines, anio);
-            return  monopatinesConCantViajes;
-    }
+            List<Monopatin> monopatinesConCantViajes = viajeClient.getCantViajesByYear(nroViajes,monopatines, anio).getBody();
+            return monopatinesConCantViajes;
+        }
 
     public List<Monopatin> getCercanosZona(int x, int y){
         List<Monopatin> monopatines = monopatinRepository.getCercanosZona(x,y,CercaniaX,CercaniaY);

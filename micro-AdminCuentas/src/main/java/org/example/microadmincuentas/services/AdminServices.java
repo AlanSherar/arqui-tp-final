@@ -89,9 +89,10 @@ public class AdminServices {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tarifa no encontrada con el id: " + id));
     }
-     public  List<Monopatin> getMonopatinesByCantViajes (int cantViajes, int fecha){
+     public List<Monopatin> getMonopatinesByCantViajes (int cantViajes, int fecha){
          try{
              ResponseEntity<List<Monopatin>>  response =feignMonopatin.getviajesbyCantViajesAndFecha(cantViajes,fecha);
+             System.out.println(response);
              if(response.getStatusCode()==HttpStatus.INTERNAL_SERVER_ERROR){
                  return null;
              }

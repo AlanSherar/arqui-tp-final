@@ -2,7 +2,6 @@ package org.example.microadmincuentas.Controller;
 
 import org.apache.http.impl.bootstrap.HttpServer;
 import org.example.microadmincuentas.Entities.Tarifa;
-import org.example.microadmincuentas.Models.Monopatin;
 import org.example.microadmincuentas.services.AdminServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(E);
         }
     }
-    @GetMapping("tarifas/{id}")
+    @GetMapping("/tarifas/{id}")
     public ResponseEntity<?> getById(@PathVariable long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.getTarifaById(id));
@@ -34,22 +33,19 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e);
         }
     }
-
     @PostMapping("/tarifas")
     public ResponseEntity<?> DefinirTarifa(@RequestBody Tarifa t){
 
            return serviceAdmin.AsignarTarifa(t);
 
     }
-
     @DeleteMapping("/tarifas/{id}")
     public ResponseEntity<?> eliminarTarifa(@PathVariable Long id){
 
 
         return ResponseEntity.status(serviceAdmin.eliminarTarifa(id)).body("");
     }
-
-    @PutMapping("tarifas/{id}")
+    @PutMapping("/tarifas/{id}")
     public ResponseEntity <?> modificarTarifa( @PathVariable  Long id, @RequestBody Tarifa t){
         return ResponseEntity.status(serviceAdmin.modificarTarifa(id,t)).body("");
     }
@@ -60,14 +56,16 @@ public class AdminController {
 
     }
     @GetMapping("/monopatines/cantViajes/{viajes}/fecha/{fecha}")
-    public  ResponseEntity<?>  getMonopatinesByCantViajes(@PathVariable int viajes, @PathVariable int fecha){
+    public  ResponseEntity<?> getMonopatinesByCantViajes(@PathVariable int viajes, @PathVariable int fecha){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.getMonopatinesByCantViajes(viajes,fecha));
+            List<Monopatin> monopatines = serviceAdmin.getMonopatinesByCantViajes(viajes,fecha);
+            System.out.println(monopatines);
+            return ResponseEntity.status(HttpStatus.OK).body(monopatines);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al obtener los datos1");
         }
     }
-    @GetMapping("monopatines/estadisticas")
+    @GetMapping("/monopatines/estadisticas")
     public ResponseEntity<?> getEstadisticas(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.getEstadisticas());

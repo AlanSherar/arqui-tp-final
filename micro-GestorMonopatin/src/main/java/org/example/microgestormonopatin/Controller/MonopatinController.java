@@ -29,8 +29,7 @@ public class MonopatinController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> modificarMonopatin(@PathVariable Long id,
-                                                        @RequestBody Monopatin monopatin) {
+    public ResponseEntity<?> modificarMonopatin(@PathVariable Long id, @RequestBody Monopatin monopatin) {
         Monopatin m = service.modificarMonopatin(id, monopatin);
         if (m != null) {
             return ResponseEntity.status(HttpStatus.OK).body(m);
@@ -40,12 +39,12 @@ public class MonopatinController {
     }
 
     @GetMapping("cantViajes/{viajes}/fecha/{fecha}")
-    public ResponseEntity<List<Monopatin>> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable int fecha){
-       try {
-           return ResponseEntity.status(HttpStatus.OK).body(service.getMonopatinesByCantidadViajes(viajes, fecha));
-       }catch (Exception e){
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-       }
+    public ResponseEntity<?> getMonopatinesByCantidadViajes(@PathVariable int viajes, @PathVariable int fecha) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.getMonopatinesByCantidadViajes(viajes, fecha));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/kms")
@@ -78,12 +77,11 @@ public class MonopatinController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id) {
         try {
-            System.out.println("monopatinController getOne "+ id);
+            System.out.println("monopatinController getOne " + id);
 
             return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
-                    ".\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" + ".\"}");
         }
     }
 
@@ -110,9 +108,7 @@ public class MonopatinController {
         try {
             long enOperacion = service.getMonopatinesEnOperacion();
             long enMantenimiento = service.getMonopatinesEnMantenimiento();
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    "Monopatines en operación: " + enOperacion + ", Monopatines en mantenimiento: " + enMantenimiento
-            );
+            return ResponseEntity.status(HttpStatus.OK).body("Monopatines en operación: " + enOperacion + ", Monopatines en mantenimiento: " + enMantenimiento);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
         }
