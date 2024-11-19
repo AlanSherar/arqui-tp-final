@@ -1,7 +1,6 @@
 package org.example.microgestordecuentas.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.apache.http.protocol.HTTP;
 import org.example.microgestordecuentas.Entity.CuentasAsociadas;
 import org.example.microgestordecuentas.Entity.Usuario;
 import org.example.microgestordecuentas.repository.CuentasAsociadasRepository;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GestorCuentasServices {

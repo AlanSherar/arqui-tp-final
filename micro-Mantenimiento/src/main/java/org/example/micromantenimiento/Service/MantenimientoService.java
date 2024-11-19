@@ -1,25 +1,15 @@
 package org.example.micromantenimiento.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.EntityNotFoundException;
-import org.example.micromantenimiento.Entity.MantenimientoMonopatin;
-import org.example.micromantenimiento.Repository.MantenimientoRepository;
 import org.example.micromantenimiento.models.Monopatin;
 import org.example.micromantenimiento.feignClients.MonopatinFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import reactor.core.publisher.Mono;
 
-import java.io.DataInput;
 
 @Service
 public class MantenimientoService {
-
-    @Autowired
-    private MantenimientoRepository mantenimientoRepository;
 
     @Autowired
     private MonopatinFeignClient monopatinClient;
@@ -50,12 +40,6 @@ public class MantenimientoService {
 
                 ResponseEntity<Monopatin> updateResponse = monopatinClient.updateMonopatin(idMonopatin, monopatin);
 
-            /*if (updateResponse.getStatusCode().is2xxSuccessful()) {
-                return HttpStatus.OK;
-            } else {
-                return HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-*/
                 if (updateResponse.getStatusCode() == HttpStatus.OK) {
                     return HttpStatus.OK;
                 } else {

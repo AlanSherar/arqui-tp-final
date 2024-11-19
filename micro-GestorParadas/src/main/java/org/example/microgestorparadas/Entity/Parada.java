@@ -1,6 +1,5 @@
 package org.example.microgestorparadas.Entity;
 
-import java.util.ArrayList;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
@@ -14,7 +13,7 @@ public class Parada {
     @Id
     @GeneratedValue
     private Long id;
-    private int  ubicacionX;
+    private int ubicacionX;
     private int ubicacionY;
 
 
@@ -26,4 +25,19 @@ public class Parada {
         this.id = id;
     }
 
+    public int getUbicacionY() {
+        return ubicacionY;
+    }
+
+    public void setUbicacionY(int ubicacionY) {
+        this.ubicacionY = ubicacionY;
+    }
+
+    public int getUbicacionX() {
+        return ubicacionX;
+    }
+
+    public void setUbicacionX(int ubicacionX) {
+        this.ubicacionX = ubicacionX;
+    }
 }

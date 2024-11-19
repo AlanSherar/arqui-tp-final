@@ -2,6 +2,7 @@ package org.example.microadmincuentas.Controller;
 
 import org.apache.http.impl.bootstrap.HttpServer;
 import org.example.microadmincuentas.Entities.Tarifa;
+import org.example.microadmincuentas.Models.Monopatin;
 import org.example.microadmincuentas.services.AdminServices;
 
 import org.springframework.beans.factory.annotation.Autowired;

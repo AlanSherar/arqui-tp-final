@@ -106,11 +106,6 @@ public class ViajeService {
             }
 
         }
-
-
-
-
-
         return monopatines;
     }
 

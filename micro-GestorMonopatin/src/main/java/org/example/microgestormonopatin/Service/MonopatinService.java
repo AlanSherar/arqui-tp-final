@@ -24,15 +24,9 @@ public class MonopatinService {
     private final int MAX_KMS = 100;
 
     @Autowired
-    private ParadaClient paradaClient;
-    @Autowired
-    private MantenimientoClient mantenimientoClient;
-    @Autowired
     private ViajeClient viajeClient;
     @Autowired
     private MonopatinRepository MonopatinRepository;
-    @Autowired
-    private MonopatinRepository monopatinRepository;
 
     private int CercaniaX = 30;
     private int CercaniaY = 30;
@@ -84,14 +78,9 @@ public class MonopatinService {
     }
 
     @Transactional
-    public Monopatin findById(Long id) throws Exception {
-        if (id == null || id <= 0) {
-            throw new IllegalArgumentException("ID proporcionado no es válido.");
-        }
-        if (MonopatinRepository.findById(id).isPresent()) {
-            return MonopatinRepository.findById(id).get();
-        }
-        return null;
+    public Monopatin findById(Long id) {
+        return MonopatinRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
     }
 
     @Transactional
@@ -127,7 +116,7 @@ public class MonopatinService {
 
     public Monopatin modificarMonopatin(Long id, Monopatin monopatin) {
         try {
-            if (monopatinRepository.existsById(id)) {
+            if (MonopatinRepository.existsById(id)) {
                 System.out.println(7);
                 monopatin.setId(id);
                 return MonopatinRepository.save(monopatin);
@@ -149,7 +138,7 @@ public class MonopatinService {
         }
 
     public List<Monopatin> getCercanosZona(int x, int y){
-        List<Monopatin> monopatines = monopatinRepository.getCercanosZona(x,y,CercaniaX,CercaniaY);
+        List<Monopatin> monopatines = MonopatinRepository.getCercanosZona(x,y,CercaniaX,CercaniaY);
         if (monopatines.isEmpty()) {
             throw new IllegalStateException("No hay monopatines disponibles.");
         }
