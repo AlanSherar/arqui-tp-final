@@ -3,8 +3,6 @@ package org.example.microgestorparadas.Service;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.microgestorparadas.Entity.Parada;
 import org.example.microgestorparadas.Repository.ParadasRepository;
-import org.example.microgestorparadas.feignClients.Monopatin;
-import org.example.microgestorviajes.clienteFeign.MonopatinClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,24 +18,10 @@ public class ParadasService {
     @Autowired
     private ParadasRepository repository;
 
-
-//    private MonopatinClient monopatinFeignClient;
-
-
     public List<Parada> findAll() {
         return repository.findAll();
     }
 
-
-//    public ResponseEntity<?> addMonopatin(Long id , Monopatin monopatin) throws Exception {
-//        if (monopatinFeignClient.getMonopatinById(monopatin.getId_parada())!=null && repository.existsById(id)) {
-//            Optional<Parada> parada = repository.findById(id);
-//
-//            return ResponseEntity.status(HttpStatus.OK).body("Monopatin añadido con exito");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error");
-//        }
-//    }
     @Transactional
     public Optional<Parada> findById(Long id) throws Exception {
         return repository.findById(id);
@@ -68,7 +52,6 @@ public class ParadasService {
     }
 
     public ResponseEntity<?> findByUbicacion(int x, int y){
-
         return repository.getByUbicacion(x, y);
     }
 
