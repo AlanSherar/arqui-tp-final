@@ -42,19 +42,29 @@ public class SecurityConfig {
         http
                 .sessionManagement( s -> s.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) );
         http
-                .securityMatcher("/api/**" )
+
                 .authorizeHttpRequests( authz -> authz
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
-                        .requestMatchers( HttpMethod.POST,"/api/carreras").hasAuthority( AuthotityConstant._ADMIN )//el orden va de más específica a menos específica
-                        .requestMatchers( "/api/carreras/**").hasAuthority( AuthotityConstant._ALUMNO ) // ésta es menos específica que la de arriba
-                        .requestMatchers("/api/estudiantes/**").hasAuthority( AuthotityConstant._ALUMNO )
-                        .requestMatchers( "/api/inscripciones/**").hasAuthority( AuthotityConstant._ADMIN )
+                        .requestMatchers( HttpMethod.POST,"/monopatines").hasAuthority( AuthotityConstant._ADMIN )
+                        .requestMatchers( HttpMethod.POST,"/viajes").hasAnyAuthority(AuthotityConstant._USER, AuthotityConstant._ADMIN)
+                        .requestMatchers( HttpMethod.GET,"/viajes").hasAuthority( AuthotityConstant._USER )
+                        .requestMatchers(HttpMethod.POST, "GestorCuentas/**").hasAuthority(AuthotityConstant._USER)
+                        .requestMatchers( HttpMethod.PUT,"/mantenimiento").hasAuthority( AuthotityConstant._ENCARGADO )
+                        .requestMatchers(HttpMethod.DELETE, "/GestorCuentas/usuarios/{id}").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.DELETE, "/monopatines/{id}").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/GestorCuentas/**").hasAuthority(AuthotityConstant._USER)
+                        .requestMatchers(HttpMethod.GET, "/monopatines/**").hasAnyAuthority(AuthotityConstant._ENCARGADO, AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/viajes/{id}").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.POST, "/viajes/").hasAuthority(AuthotityConstant._USER)
+                        .requestMatchers(HttpMethod.PUT, "/viajes/{id}").hasAnyAuthority(AuthotityConstant._USER, AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/viajes/{id}/ubicacionX/{x}/ubicacionY/{y}").hasAuthority(AuthotityConstant._USER)
+                        .requestMatchers(HttpMethod.DELETE, "/viajes/{id}").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/viajes/cantViajes/{cantViajes}/year/{anio}").hasAuthority(AuthotityConstant._ADMIN)
                         .anyRequest().authenticated()
                 )
                 .httpBasic( Customizer.withDefaults() )
                 .addFilterBefore( new JwtFilter( this.tokenProvider ), UsernamePasswordAuthenticationFilter.class );
         return http.build();
     }
-
 }
