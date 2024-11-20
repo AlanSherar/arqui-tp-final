@@ -44,23 +44,33 @@ public class SecurityConfig {
         http
 
                 .authorizeHttpRequests( authz -> authz
+                        //ENDPOINTS AUTENTICACION
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+                        //ENDPOINTS MONOPATIN
                         .requestMatchers( HttpMethod.POST,"/monopatines").hasAuthority( AuthotityConstant._ADMIN )
-                        .requestMatchers( HttpMethod.POST,"/viajes").hasAnyAuthority(AuthotityConstant._USER, AuthotityConstant._ADMIN)
-                        .requestMatchers( HttpMethod.GET,"/viajes").hasAuthority( AuthotityConstant._USER )
-                        .requestMatchers(HttpMethod.POST, "GestorCuentas/**").hasAuthority(AuthotityConstant._USER)
-                        .requestMatchers( HttpMethod.PUT,"/mantenimiento").hasAuthority( AuthotityConstant._ENCARGADO )
-                        .requestMatchers(HttpMethod.DELETE, "/GestorCuentas/usuarios/{id}").hasAuthority(AuthotityConstant._ADMIN)
-                        .requestMatchers(HttpMethod.DELETE, "/monopatines/{id}").hasAuthority(AuthotityConstant._ADMIN)
-                        .requestMatchers(HttpMethod.PUT, "/GestorCuentas/**").hasAuthority(AuthotityConstant._USER)
                         .requestMatchers(HttpMethod.GET, "/monopatines/**").hasAnyAuthority(AuthotityConstant._ENCARGADO, AuthotityConstant._ADMIN)
-                        .requestMatchers(HttpMethod.GET, "/viajes/{id}").hasAuthority(AuthotityConstant._ADMIN)
-                        .requestMatchers(HttpMethod.POST, "/viajes/").hasAuthority(AuthotityConstant._USER)
+                        .requestMatchers(HttpMethod.DELETE, "/monopatines/{id}").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/monopatines/cercanos/ubicacionX/{x}/ubicacionY/{y}").hasAnyAuthority(AuthotityConstant._USER, AuthotityConstant._ADMIN)
+                        // VIAJES
+                        .requestMatchers(HttpMethod.GET, "/viajes/{id}").hasAnyAuthority(AuthotityConstant._USER, AuthotityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/viajes/{id}").hasAnyAuthority(AuthotityConstant._USER, AuthotityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/viajes/{id}/ubicacionX/{x}/ubicacionY/{y}").hasAuthority(AuthotityConstant._USER)
                         .requestMatchers(HttpMethod.DELETE, "/viajes/{id}").hasAuthority(AuthotityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/viajes/cantViajes/{cantViajes}/year/{anio}").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.POST, "/viajes").hasAnyAuthority(AuthotityConstant._USER, AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/viajes").hasAuthority(AuthotityConstant._USER)
+                        // GESTOR CUENTAS
+                        .requestMatchers(HttpMethod.POST, "/GestorCuentas/**").hasAuthority(AuthotityConstant._USER)
+                        .requestMatchers(HttpMethod.DELETE, "/GestorCuentas/usuarios/{id}").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/GestorCuentas/**").hasAuthority(AuthotityConstant._USER)
+                        // MANTENIMIENTO
+                        .requestMatchers(HttpMethod.PUT, "/mantenimiento").hasAuthority(AuthotityConstant._ENCARGADO)
+                        // PARADAS
+                        .requestMatchers(HttpMethod.GET, "/paradas/**").hasAuthority(AuthotityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/paradas/ubicacionX/{x}/ubicacionY/{y}").hasAnyAuthority(AuthotityConstant._ADMIN, AuthotityConstant._USER)
+                        // ADMIN
+                        .requestMatchers(HttpMethod.GET, "/admin/**").hasAuthority(AuthotityConstant._ADMIN)
                         .anyRequest().authenticated()
                 )
                 .httpBasic( Customizer.withDefaults() )
