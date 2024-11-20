@@ -22,7 +22,7 @@ spring:
           - id: micro-GestorCuentas
             uri: lb://micro-GestorCuentas
             predicates:
-              - Path=/gestorCuentas/**
+              - Path=/GestorCuentas/**
           - id: micro-GestorMonopatin
             uri: lb://micro-GestorMonopatin
             predicates:
@@ -30,7 +30,7 @@ spring:
           - id: micro-GestorParadas
             uri: lb://micro-GestorParadas
             predicates:
-              - Path=/api/paradas/**
+              - Path=/paradas/**
           - id: micro-GestorViajes
             uri: lb://micro-GestorViajes
             predicates:
@@ -38,7 +38,7 @@ spring:
           - id: micro-Mantenimiento
             uri: lb://micro-Mantenimiento
             predicates:
-              - Path=/api/mantenimiento/**
+              - Path=/mantenimiento/**
 
 logging:
   level:
