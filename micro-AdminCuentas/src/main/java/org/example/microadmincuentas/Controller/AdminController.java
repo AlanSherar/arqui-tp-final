@@ -2,6 +2,7 @@ package org.example.microadmincuentas.Controller;
 
 import org.apache.http.impl.bootstrap.HttpServer;
 import org.example.microadmincuentas.Entities.Tarifa;
+import org.example.microadmincuentas.Models.Monopatin;
 import org.example.microadmincuentas.services.AdminServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,13 +76,13 @@ public class AdminController {
     }
 
 
-    @PutMapping("/tarifa/precioNuevo/{precio}")
-    public ResponseEntity<?> actualizarPrecio(@PathVariable int precio, @RequestBody Tarifa t){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.actualizarPrecios(precio, t));
-        }catch (Exception e){
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
-        }
-    }
+//    @PutMapping("/tarifa/precioNuevo/{precio}")
+//    public ResponseEntity<?> actualizarPrecio(@PathVariable int precio, @RequestBody Tarifa t){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(serviceAdmin.actualizarPrecios(precio, t));
+//        }catch (Exception e){
+//            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+//        }
+//    }
 
 }

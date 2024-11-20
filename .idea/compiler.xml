@@ -9,10 +9,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
         <module name="Micro-GestorDeCuentas" />
+        <module name="configServer" />
         <module name="micro-GestorMonopatin" />
         <module name="micro-AdminCuentas" />
         <module name="micro-GestorViajes" />
         <module name="micro-GestorParadas" />
+        <module name="gateway" />
         <module name="micro-Mantenimiento" />
       </profile>
     </annotationProcessing>
@@ -24,6 +26,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="EurekaServer" options="-parameters" />
       <module name="Micro-GestorDeCuentas" options="-parameters" />
+      <module name="configServer" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="micro-AdminCuentas" options="-parameters" />
       <module name="micro-GestorCuentas" options="-parameters" />
       <module name="micro-GestorMonopatin" options="-parameters" />

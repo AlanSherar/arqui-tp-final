@@ -3,7 +3,7 @@ import org.example.micromantenimiento.models.Monopatin;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
+
 
 @FeignClient(name = "micro-GestorMonopatin", url = "http://localhost:8094/monopatines")
 public interface MonopatinFeignClient {

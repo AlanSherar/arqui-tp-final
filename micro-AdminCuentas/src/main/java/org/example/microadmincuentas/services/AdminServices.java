@@ -114,13 +114,13 @@ public class AdminServices {
         }
      }
 
-     public ResponseEntity<?> actualizarPrecios(int precio, Tarifa t){
-        LocalDate fechaActual = LocalDate.now();
-        if (t.getFecha_actualizacion() == fechaActual){
-            t.setPrecio_tarifa(precio);
-            ResponseEntity.status(HttpStatus.OK).body(repository.save(t));
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al actualizar el precio");
-     }
+//     public ResponseEntity<?> actualizarPrecios(int precio, Tarifa t){
+//        LocalDate fechaActual = LocalDate.now();
+//        if (t.getFecha_actualizacion() == fechaActual){
+//            t.setPrecio_tarifa(precio);
+//            ResponseEntity.status(HttpStatus.OK).body(repository.save(t));
+//        }
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error al actualizar el precio");
+//     }
 
 }

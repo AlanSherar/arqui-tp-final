@@ -1,0 +1,16 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config-path
+  discovery:
+    enabled: true  # Activa el descubrimiento de servicios (Eureka)
+    openfeign:
+      enabled: true  # Activa Feign para todas las configuraciones que consuma este config server

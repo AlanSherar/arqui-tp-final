@@ -17,8 +17,8 @@ public class Tarifa {
     private Long idTarifa;
     private String nombreTarifa;
     private int precio_tarifa;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate fecha_actualizacion;
+
+    private String fecha_actualizacion;
 
     @Override
     public String toString() {

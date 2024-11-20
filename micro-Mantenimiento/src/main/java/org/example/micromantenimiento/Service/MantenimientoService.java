@@ -23,6 +23,7 @@ public class MantenimientoService {
 
     @Autowired
     private MonopatinFeignClient monopatinClient;
+
     private final int kmsMantenimiento = 500;
     private final double tiempoMantenimiento = 200;
 
