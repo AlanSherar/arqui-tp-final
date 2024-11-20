@@ -34,11 +34,11 @@ spring:
           - id: micro-GestorViajes
             uri: lb://micro-GestorViajes
             predicates:
-              - Path=/api/viajes/**
+              - Path=/viajes/**
           - id: micro-Mantenimiento
             uri: lb://micro-Mantenimiento
             predicates:
-              - Path=/api/mantenimiento/**
+              - Path=/mantenimiento/**
 
 logging:
   level:
