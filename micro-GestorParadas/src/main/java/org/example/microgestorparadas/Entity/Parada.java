@@ -1,29 +1,54 @@
 package org.example.microgestorparadas.Entity;
 
-import java.util.ArrayList;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-
-@Entity
-@Data
+@Document(collection = "paradas")
 public class Parada {
 
     @Id
-    @GeneratedValue
-    private Long id;
-    private int  ubicacionX;
-    private int ubicacionY;
+    private String id;
+    private String nombre;
+    private String ubicacionX;
+    private String ubicacionY;
 
 
-    public Long getId() {
+    public Parada(String id, String nombre, String ubicacionY, String ubicacionX) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ubicacionY = ubicacionY;
+        this.ubicacionX = ubicacionX;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getUbicacionX() {
+        return ubicacionX;
+    }
+
+    public void setUbicacionX(String ubicacionX) {
+        this.ubicacionX = ubicacionX;
+    }
+
+    public String getUbicacionY() {
+        return ubicacionY;
+    }
+
+    public void setUbicacionY(String ubicacionY) {
+        this.ubicacionY = ubicacionY;
+    }
 }

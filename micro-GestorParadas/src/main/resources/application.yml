@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: microservicio-parada
+  config:
+    import: optional:configserver:http://localhost:8081
+  data:
+    mongodb:
+      uri: mongodb://root:1234@localhost:27017/MicroGestorParadasDB?authSource=admin
+      database: MicroGestorParadasDB

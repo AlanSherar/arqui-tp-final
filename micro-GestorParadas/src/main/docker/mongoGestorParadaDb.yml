@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  db-mongo:
+    container_name: mongo-container
+    image: mongo:latest
+    command:
+      - --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+      MONGO_INITDB_DATABASE: MicroGestorParadasDB
+    volumes:
+      - ./init-mongo:/docker-entrypoint-initdb.d/
+    ports:
+      - "0.0.0.0:27017:27017"
+    networks:
+      - mongo-network
+
+networks:
+  mongo-network:
+    driver: bridge

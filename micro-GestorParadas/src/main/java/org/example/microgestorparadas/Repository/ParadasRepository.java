@@ -1,18 +1,15 @@
 package org.example.microgestorparadas.Repository;
 
-
 import org.example.microgestorparadas.Entity.Parada;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-public interface ParadasRepository extends JpaRepository<Parada, Long> {
+import java.util.Optional;
 
-    @Query("SELECT p FROM Parada p WHERE p.ubicacionX = :x AND p.ubicacionY = :y")
-    ResponseEntity<Parada> getByUbicacion(int x, int y);
+public interface ParadasRepository extends MongoRepository<Parada, String> {
 
 
-
-
+    @Query("{'ubicacionX': ?0, 'ubicacionY': ?1}")
+    Optional<Parada> findByUbicacion(int x, int y);
 
 }
