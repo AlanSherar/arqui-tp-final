@@ -77,24 +77,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MicroGestorParadaDB@localhost [2]" uuid="2a65b225-0ec9-4271-ac98-09c69f9c909b">
+    <data-source source="LOCAL" name="MicroGestorParadasDB@localhost" uuid="e9d3746d-ddee-4910-bbd6-ea11b537e9c6">
       <driver-ref>mongo</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
-      <jdbc-url>mongodb://localhost:27017/MicroGestorParadaDB</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.host.port" />
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-        <property name="com.intellij.clouds.kubernetes.db.container.port" />
-      </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="MicroGestorParadasDB@localhost" uuid="4288d741-1490-45ca-aff4-52e1337e1e98">
-      <driver-ref>mongo</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
-      <jdbc-url>mongodb://localhost:27017/MicroGestorParadasDB?authSource=admin</jdbc-url>
+      <jdbc-url>mongodb://localhost:27017/MicroGestorParadasDB</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
